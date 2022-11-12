@@ -10,13 +10,13 @@ bool testInfinity () {
     return Ratio::INFINITY.numerator == 1 && Ratio::PLUS_INF.denominator == 0;
 }
 
-bool testInfPlus () {
-    return Ratio::PLUS_INF.numerator == 1 && Ratio::PLUS_INF.denominator == 0;
-}
+// bool testInfPlus () {
+//     return Ratio::PLUS_INF.numerator == 1 && Ratio::PLUS_INF.denominator == 0;
+// }
 
-bool testInfPlus () {
-    return Ratio::MINUS_INF.numerator == -1 && Ratio::MINUS_INF.denominator == 0;
-}
+// bool testInfPlus () {
+//     return Ratio::MINUS_INF.numerator == -1 && Ratio::MINUS_INF.denominator == 0;
+// }
 
 // Type tests
 
@@ -58,10 +58,11 @@ bool testMultiplyA () {
 
     Ratio<int> c = a * b;
 
+    // TODO Is there auto-simplify ? If there is, the result should be 5/9.
     return c.numerator == 10 && c.denominator == 18;
 }
 
-bool testDivideA () {
+bool testDivisionA () {
     Ratio<int> a (5, 6);
     Ratio<int> b (2, 3);
 
@@ -90,10 +91,24 @@ bool testRoundA () {
     return b.numerator == 0 && b.denominator == 3;
 }
 
-bool testRoundA () {
+bool testRoundB () {
     Ratio<int> a (2, 3);
 
     return b.numerator == 0 && b.denominator == 3;
+}
+
+// Auto-simplify: ON
+bool testRoundC () {
+    Ratio<int> a (103, 3);
+
+    return b.numerator == 34 && b.denominator == 1;
+}
+
+// Auto-simplify: OFF
+bool testRoundC () {
+    Ratio<int> a (103, 3);
+
+    return b.numerator == 102 && b.denominator == 3;
 }
 
 // Comparison tests

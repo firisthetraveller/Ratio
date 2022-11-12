@@ -10,13 +10,6 @@ bool testConvertNegativeA () {
 
 // Methods
 
-bool testSimplifyB () {
-    Ratio<int> a (0, 3);
-    a.simplify ();
-
-    return a == Ratio::ZERO;
-}
-
 // TODO cos
 bool testCosA () {
     // cos(0) = 1

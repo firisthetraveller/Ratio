@@ -1,6 +1,22 @@
 #include "../libRatio/include/Ratio.hpp"
 
-// Operator *
+// Methods
+
+bool testSimplifyB () {
+    Ratio<int> a (0, 3);
+    a.simplify ();
+
+    return a == Ratio::ZERO;
+}
+
+bool testSimplifyC () {
+    Ratio<int> a (5, 0);
+    a.simplify ();
+
+    return a == Ratio::INFINITY;
+}
+
+// Operators
 bool testScalarMultiplyA () {
     Ratio<int> a (2, 5);
     Ratio<int> b = 5 * a;
@@ -17,6 +33,15 @@ bool testScalarMultiplyB () {
     b.simplify();
 
     return a == Ratio<int>(2, 1);
+}
+
+bool testDivisionB () {
+    Ratio<int> a (5, 6);
+    Ratio<int> b = Ratio::ZERO;
+
+    Ratio<int> c = a / b;
+
+    return c.denominator == 0;
 }
 
 // Operators with some letters
