@@ -2,12 +2,14 @@
 
 // Constant value tests
 
-bool testZero () {
-    return Ratio::ZERO.numerator == 0 && Ratio::ZERO.denominator == 1;
+TEST (DefaultValues, Zero) {
+    EXPECT_EQ(0, Ratio::ZERO.numerator);
+    EXPECT_EQ(1, Ratio::ZERO.denominator);
 }
 
-bool testInfinity () {
-    return Ratio::INFINITY.numerator == 1 && Ratio::PLUS_INF.denominator == 0;
+TEST (DefaultValues, Infinity) {
+    EXPECT_EQ(1, Ratio::INFINITY.numerator);
+    EXPECT_EQ(0, Ratio::PLUS_INF.denominator);
 }
 
 // bool testInfPlus () {
@@ -20,195 +22,279 @@ bool testInfinity () {
 
 // Type tests
 
-bool testIntA () {
+TEST(TemplateType, Integer) {
     Ratio<int> a (1, 2);
 
-    return typeid(int) == typeid(a.numerator);
+    EXPECT_TRUE(typeid(int) == typeid(a.numerator));
 }
 
-bool testIntB () {
+TEST(TemplateType, LongInteger) {
     Ratio<long int> a (1, 2);
 
-    return typeid(long int) == typeid(a.numerator);
+    EXPECT_TRUE(typeid(long int) == typeid(a.numerator));
+}
+
+TEST(TemplateType, NegativeDenominator) {
+    Ratio<int> a (1, -2);
+
+    EXPECT_FALSE(a.denominator < 0);
+    EXPECT_EQ(-1, a.numerator);
+    EXPECT_EQ(2, a.denominator);
+}
+
+TEST(TemplateType, SignCorrection) {
+    Ratio<int> a (-1, -2);
+
+    EXPECT_FALSE(a.denominator < 0);
+    EXPECT_EQ(1, a.numerator);
+    EXPECT_EQ(2, a.denominator);
+}
+
+// Simplify tests
+
+TEST(Simplify, Constructor) {
+    Ratio<int> a (2, 4);
+
+    EXPECT_EQ(1, a.numerator);
+    EXPECT_EQ(2, a.denominator);
 }
 
 // Operator tests
 
-bool testAdditionA () {
+TEST(SimpleOperators, Addition) {
+    Ratio<int> a (1, 2);
+    Ratio<int> b (1, 3);
+
+    Ratio<int> c = a + b;
+
+    EXPECT_EQ(5, c.numerator);
+    EXPECT_EQ(6, c.denominator);
+}
+
+TEST(Simplify, Addition) {
     Ratio<int> a (5, 6);
     Ratio<int> b (2, 3);
 
     Ratio<int> c = a + b;
 
-    return c.numerator == 9 && c.denominator == 6;
+    EXPECT_EQ(3, c.numerator);
+    EXPECT_EQ(2, c.denominator);
 }
 
-bool testSubtractionA () {
+TEST(SimpleOperators, Subtraction) {
     Ratio<int> a (5, 6);
     Ratio<int> b (2, 3);
 
     Ratio<int> c = a - b;
 
-    return c.numerator == 1 && c.denominator == 6;
+    EXPECT_EQ(1, c.numerator)
+    EXPECT_EQ(6, c.denominator);
 }
 
-bool testMultiplyA () {
+// TEST(Simplify, Subtraction) {
+//     Ratio<int> a (1, 1);
+//     Ratio<int> b (1, 2);
+
+//     Ratio<int> c = a + b;
+
+//     EXPECT_EQ(3, c.numerator);
+//     EXPECT_EQ(2, c.denominator);
+// }
+
+TEST(SimpleOperators, Multiply) {
+    Ratio<int> a (5, 6);
+    Ratio<int> b (1, 3);
+
+    Ratio<int> c = a * b;
+
+    EXPECT_EQ(5, c.numerator);
+    EXPECT_EQ(18, c.denominator);
+}
+
+TEST(Simplify, Multiply) {
     Ratio<int> a (5, 6);
     Ratio<int> b (2, 3);
 
     Ratio<int> c = a * b;
 
-    // TODO Is there auto-simplify ? If there is, the result should be 5/9.
-    return c.numerator == 10 && c.denominator == 18;
+    EXPECT_EQ(5, c.numerator);
+    EXPECT_EQ(9, c.denominator); // 10 / 18 -> 5 / 9
 }
 
-bool testDivisionA () {
+TEST(SimpleOperators, Division) {
+    Ratio<int> a (5, 3);
+    Ratio<int> b (7, 2);
+
+    Ratio<int> c = a / b;
+
+    EXPECT_EQ(10, c.numerator);
+    EXPECT_EQ(21, c.denominator);
+}
+
+TEST(Simplify, Division) {
     Ratio<int> a (5, 6);
     Ratio<int> b (2, 3);
 
     Ratio<int> c = a / b;
 
-    return c.numerator == 15 && c.denominator == 12;
+    EXPECT_EQ(5, c.numerator);
+    EXPECT_EQ(4, c.denominator);
 }
 
-bool testAbsA () {
+TEST(StandardOperators, Absolute) {
     Ratio<int> a (-5, 1);
     a = a.abs();
 
-    return a.numerator == 5 && b.denominator == 1;
+    EXPECT_EQ(5, a.numerator);
+    EXPECT_EQ(1, a.denominator);
 }
 
-bool testUnaryMinusA () {
+TEST(SimpleOperators, UnaryMinus) {
     Ratio<int> a (2, 3);
     Ratio<int> b = -a;
 
-    return b.numerator == -2 && b.denominator == 3;
+    EXPECT_EQ(-2, b.numerator);
+    EXPECT_EQ(3, b.denominator);
 }
 
-bool testRoundA () {
+TEST(StandardOperators, Truncate) {
     Ratio<int> a (2, 3);
+    Ratio<int> b = a.truncate();
 
-    return b.numerator == 0 && b.denominator == 3;
+    EXPECT_EQ(0, b.numerator);
+    EXPECT_EQ(1, b.denominator);
 }
 
-bool testRoundB () {
+TEST(StandardOperators, RoundUpper) {
     Ratio<int> a (2, 3);
+    Ratio<int> b = a.round();
 
-    return b.numerator == 0 && b.denominator == 3;
+    EXPECT_EQ(1, b.numerator);
+    EXPECT_EQ(1, b.denominator);
 }
 
-// Auto-simplify: ON
-bool testRoundC () {
-    Ratio<int> a (103, 3);
+TEST(StandardOperators, RoundLower) {
+    Ratio<int> a (1, 3);
+    Ratio<int> b = a.round();
 
-    return b.numerator == 34 && b.denominator == 1;
+    EXPECT_EQ(0, a.numerator);
+    EXPECT_EQ(1, b.denominator);
 }
 
-// Auto-simplify: OFF
-bool testRoundC () {
-    Ratio<int> a (103, 3);
+TEST(StandardOperators, Inverse) {
+    Ratio<int> a (1, 3);
+    Ratio<int> b = a.inv();
 
-    return b.numerator == 102 && b.denominator == 3;
+    EXPECT_EQ(b.denominator, a.numerator);
+    EXPECT_EQ(a.denominator, b.numerator);
+}
+
+TEST(StandardOperators, NegativeInverse) {
+    Ratio<int> a (-1, 3);
+    Ratio<int> b = a.inv();
+
+    EXPECT_EQ(-b.denominator, a.numerator);
+    EXPECT_EQ(a.denominator, b.numerator);
 }
 
 // Comparison tests
 
-bool testLowerA () {
+TEST(ComparisonOperators, LowerWhenTrue) {
     Ratio<int> a (3, 5);
     Ratio<int> b (6, 7);
 
-    return (a < b) == true;
+    EXPECT_TRUE(a < b);
 }
 
-bool testLowerB () {
+TEST(ComparisonOperators, LowerWhenFalse) {
     Ratio<int> a (3, 5);
     Ratio<int> b (6, 7);
 
-    return (b < a) == false;
+    EXPECT_FALSE(b < a);
 }
 
-bool testLowerEqualA () {
+TEST(ComparisonOperators, LowerEqualWhenEqualA) {
     Ratio<int> a (3, 5);
     Ratio<int> b (6, 10);
 
-    return (a <= b) == true;
+    EXPECT_TRUE(a <= b);
 }
 
-bool testLowerEqualB () {
+TEST(ComparisonOperators, LowerEqualWhenEqualB) {
     Ratio<int> a (3, 5);
     Ratio<int> b (6, 10);
 
-    return (b <= a) == true;
+    EXPECT_TRUE (b <= a);
 }
 
-bool testLowerEqualC () {
+TEST(ComparisonOperators, LowerEqualWhenTrue) {
     Ratio<int> a (4, 5);
     Ratio<int> b (3, 5);
 
-    return (b <= a) == true;
+    EXPECT_TRUE (b <= a);
 }
 
-bool testLowerEqualD () {
+TEST(ComparisonOperators, LowerEqualWhenFalse) {
     Ratio<int> a (4, 5);
     Ratio<int> b (3, 5);
 
-    return (a <= b) == false;
+    EXPECT_FALSE (a <= b);
 }
 
-bool testEqualA () {
+TEST(ComparisonOperators, EqualWhenFalse) {
     Ratio<int> a (4, 5);
     Ratio<int> b (3, 5);
 
-    return (a == b) == false;
+    EXPECT_FALSE (a == b);
 }
 
-bool testEqualB () {
+TEST(ComparisonOperators, EqualWhenTrue) {
     Ratio<int> a (4, 5);
     Ratio<int> b (8, 10);
 
-    return (a == b) == true;
+    EXPECT_TRUE (a == b);
 }
 
-bool testGreaterA () {
+TEST(ComparisonOperators, GreaterWhenFalse) {
     Ratio<int> a (3, 5);
     Ratio<int> b (6, 7);
 
-    return (a > b) == false;
+    EXPECT_FALSE (a > b);
 }
 
-bool testGreaterB () {
+TEST(ComparisonOperators, GreaterWhenTrue) {
     Ratio<int> a (3, 5);
     Ratio<int> b (6, 7);
 
-    return (b > a) == true;
+    EXPECT_TRUE (b > a);
 }
 
-bool testGreaterEqualA () {
+TEST(ComparisonOperators, GreaterEqualWhenEqualA) {
     Ratio<int> a (3, 5);
     Ratio<int> b (6, 10);
 
-    return (a >= b) == true;
+    EXPECT_TRUE (a >= b);
 }
 
-bool testGreaterEqualB () {
+TEST(ComparisonOperators, GreaterEqualWhenEqualB) {
     Ratio<int> a (3, 5);
     Ratio<int> b (6, 10);
 
-    return (b >= a) == true;
+    EXPECT_TRUE (b >= a);
 }
 
-bool testGreaterEqualC () {
+TEST(ComparisonOperators, GreaterEqualWhenFalse) {
     Ratio<int> a (4, 5);
     Ratio<int> b (3, 5);
 
-    return (b >= a) == false;
+    EXPECT_FALSE (b >= a);
 }
 
-bool testGreaterEqualD () {
+TEST(ComparisonOperators, GreaterEqualWhenTrue) {
     Ratio<int> a (4, 5);
     Ratio<int> b (3, 5);
 
-    return (a >= b) == true;
+    EXPECT_TRUE (a >= b);
 }
 
 // Exception tests
@@ -216,38 +302,21 @@ bool testGreaterEqualD () {
 
 // Constructor tests
 
-bool testConstructorA () {
+TEST (Constructor, ClassicExplicit) {
     Ratio<int> a (1, 2);
 
-    return a.numerator == 1 && b.denominator == 2;
+    EXPECT_EQ(1, a.numerator);
+    EXPECT_EQ(2, a.denominator);
 }
 
-bool testConstructorB () {
+TEST (Constructor, Integer) {
     Ratio<int> a (5); // integer
 
-    return a.numerator == 1 && b.denominator == 2;
-}
-
-bool testAutoCorrectA () {
-    Ratio<int> a (5, -6);
-
-    return a.numerator == -5 && b.denominator == 6;
-}
-
-bool testAutoCorrectB () {
-    Ratio<int> a (-5, -6);
-
-    return a.numerator == 5 && b.denominator == 6;
+    EXPECT_EQ(5, a.numerator);
+    EXPECT_EQ(1, a.denominator);
 }
 
 // Methods
 
-bool testSimplifyA () {
-    Ratio<int> a = Ratio<int> (5, 6);
-    Ratio<int> b = Ratio<int> (2, 3);
-
-    Ratio<int> c = a * b;
-    c.simplify();
-
-    return c.numerator == 5 && c.denominator == 9;
-}
+// TODO Check for a private method simplify.
+// TODO Check from "outside" that simplify is not usable.

@@ -1,83 +1,85 @@
 #include "../libRatio/include/Ratio.hpp"
 
+// Types
+// TODO : Ratio<unsigned int> , Ratio<float>
+
 // Methods
 
-bool testSimplifyB () {
+TEST (Simplify, ToConstZero) {
     Ratio<int> a (0, 3);
-    a.simplify ();
 
-    return a == Ratio::ZERO;
+    EXPECT_EQ(a, Ratio::ZERO);
 }
 
-bool testSimplifyC () {
+TEST (Simplify, ToConstInfinity) {
     Ratio<int> a (5, 0);
-    a.simplify ();
 
-    return a == Ratio::INFINITY;
+    EXPECT_EQ(a, Ratio::INFINITY);
 }
 
 // Operators
-bool testScalarMultiplyA () {
+TEST (IntermediateOperators, ScalarMultiplyA) {
     Ratio<int> a (2, 5);
     Ratio<int> b = 5 * a;
 
-    b.simplify();
-
-    return a == Ratio<int>(2, 1);
+    EXPECT_EQ(a, Ratio<int>(2, 1));
 }
 
-bool testScalarMultiplyB () {
+TEST (IntermediateOperators, ScalarMultiplyB) {
     Ratio<int> a (2, 5);
     Ratio<int> b = a * 5;
 
-    b.simplify();
-
-    return a == Ratio<int>(2, 1);
+    EXPECT_EQ(a, Ratio<int>(2, 1));
 }
 
-bool testDivisionB () {
+TEST(IntermediateOperators, DivisionByZero) {
     Ratio<int> a (5, 6);
-    Ratio<int> b = Ratio::ZERO;
+    Ratio<int> b = Ratio<int>::ZERO;
 
     Ratio<int> c = a / b;
 
-    return c.denominator == 0;
+    EXPECT_EQ (0, c.denominator);
+    EXPECT_EQ (c.abs(), Ratio<int>::INFINITY);
 }
 
 // Operators with some letters
-bool testPowA () {
+TEST(IntermediateMethodOperators, Power) {
     Ratio<int> a (5, 2);
     Ratio<int> b = a.pow(5);
 
-    return b.denominator == 32 && b.numerator == 5*25*25;
+    EXPECT_EQ(32, b.denominator);
+    EXPECT_EQ(5*25*25, b.numerator);
 }
 
-bool testPowB () {
+TEST(IntermediateMethodOperators, NegativePower) {
     Ratio<int> a (5, 2);
     Ratio<int> b = a.pow(-1);
     Ratio<int> c = a.inv();
 
-    return b == c;
+    EXPECT_EQ(b, c);
 }
 
 // Convert
 
-bool testConvertA () {
+TEST(Conversion, SimpleConversionInteger) {
     Ratio<int> a = Ratio::convert_from_float(2.0f);
 
-    return a.numerator == 2 && a.denominator == 1;
+    EXPECT_EQ(2, a.numerator);
+    EXPECT_EQ(1, a.denominator);
 }
 
-bool testConvertB () {
+TEST(Conversion, SimpleConversionDecimal) {
     Ratio<int> a = Ratio::convert_from_float(0.5f);
 
-    return a.numerator == 1 && a.denominator == 2;
+    EXPECT_EQ(1, a.numerator);
+    EXPECT_EQ(2, a.denominator);
 }
 
-bool testConvertC () { // Not sure if this one works
+TEST(Conversion, ConversionDecimal) { // Not sure if this one works
     Ratio<int> a = Ratio::convert_from_float(0.33f);
 
-    return a.numerator == 33 && a.denominator == 100;
+    EXPECT_EQ(33, a.numerator);
+    EXPECT_EQ(100, a.denominator);
 }
 
 // Value binding (operator =)
