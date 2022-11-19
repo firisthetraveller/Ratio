@@ -21,3 +21,6 @@
         - Check for a private method simplify.
         - Check from "outside" that simplify is not usable.
 - G : What are the expected exceptions ?
+
+18.11.12 :
+- UnitTest : test with a lot of random values
