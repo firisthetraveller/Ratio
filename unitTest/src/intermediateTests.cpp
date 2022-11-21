@@ -1,6 +1,6 @@
-#include "Ratio.hpp"
-
 #include <gtest/gtest.h>
+
+#include "Ratio.hpp"
 
 // Types
 // TODO : Ratio<unsigned int> , Ratio<float>
@@ -45,7 +45,7 @@ TEST(IntermediateOperators, DivisionByZero)
 
     Ratio<int> c = a / b;
 
-    EXPECT_EQ(0, c.denominator);
+    EXPECT_EQ(0, c.getDenominator());
     EXPECT_EQ(c.abs(), Ratio<int>::INFINITY);
 }
 
@@ -55,8 +55,8 @@ TEST(IntermediateMethodOperators, Power)
     Ratio<int> a(5, 2);
     Ratio<int> b = a.pow(5);
 
-    EXPECT_EQ(32, b.denominator);
-    EXPECT_EQ(5 * 25 * 25, b.numerator);
+    EXPECT_EQ(32, b.getDenominator());
+    EXPECT_EQ(5 * 25 * 25, b.getNumerator());
 }
 
 TEST(IntermediateMethodOperators, NegativePower)
@@ -72,27 +72,24 @@ TEST(IntermediateMethodOperators, NegativePower)
 
 TEST(Conversion, SimpleConversionInteger)
 {
-    Ratio<int> a = Ratio::convert_from_float(2.0f);
+    Ratio<int> a = Ratio<int>::convertFromFloat(2.0f);
 
-    EXPECT_EQ(2, a.numerator);
-    EXPECT_EQ(1, a.denominator);
+    EXPECT_EQ(2, a.getNumerator());
+    EXPECT_EQ(1, a.getDenominator());
 }
 
 TEST(Conversion, SimpleConversionDecimal)
 {
-    Ratio<int> a = Ratio::convert_from_float(0.5f);
+    Ratio<int> a = Ratio<int>::convertFromFloat(0.5f);
 
-    EXPECT_EQ(1, a.numerator);
-    EXPECT_EQ(2, a.denominator);
+    EXPECT_EQ(1, a.getNumerator());
+    EXPECT_EQ(2, a.getDenominator());
 }
 
 TEST(Conversion, ConversionDecimal)
 { // Not sure if this one works
-    Ratio<int> a = Ratio::convert_from_float(0.33f);
+    Ratio<int> a = Ratio<int>::convertFromFloat(0.33f);
 
-    EXPECT_EQ(33, a.numerator);
-    EXPECT_EQ(100, a.denominator);
+    EXPECT_EQ(33, a.getNumerator());
+    EXPECT_EQ(100, a.getDenominator());
 }
-
-// Value binding (operator =)
-// Copy ? Or direct value binding ?

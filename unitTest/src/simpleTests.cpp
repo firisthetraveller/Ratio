@@ -1,61 +1,74 @@
-#include "Ratio.hpp"
-
 #include <gtest/gtest.h>
+
+#include "../../libRatio/include/Ratio.hpp"
+#include "../../libRatio/include/RatioGenerator.hpp"
 
 // Constant value tests
 
 TEST(DefaultValues, Zero)
 {
-    EXPECT_EQ(0, Ratio<int>::ZERO.numerator);
-    EXPECT_EQ(1, Ratio<int>::ZERO.denominator);
+    EXPECT_EQ(0, Ratio<int>::ZERO.getNumerator());
+    EXPECT_EQ(1, Ratio<int>::ZERO.getDenominator());
 }
 
 TEST(DefaultValues, Infinity)
 {
-    EXPECT_EQ(1, Ratio<int>::INFINITY.numerator);
-    EXPECT_EQ(0, Ratio<int>::PLUS_INF.denominator);
+    EXPECT_EQ(1, Ratio<int>::INFINITY.getNumerator());
+    EXPECT_EQ(0, Ratio<int>::PLUS_INF.getDenominator());
 }
-
-// bool testInfPlus () {
-//     return Ratio::PLUS_INF.numerator == 1 && Ratio::PLUS_INF.denominator == 0;
-// }
-
-// bool testInfPlus () {
-//     return Ratio::MINUS_INF.numerator == -1 && Ratio::MINUS_INF.denominator == 0;
-// }
 
 // Type tests
 
 TEST(TemplateType, Integer)
 {
-    Ratio<int> a(1, 2);
+    RatioGenerator<int> gen = RatioGenerator<int>();
+    Ratio<int> a = gen.get();
 
-    EXPECT_TRUE(typeid(int) == typeid(a.numerator));
+    EXPECT_TRUE(typeid(int) == typeid(a.getNumerator()));
 }
 
 TEST(TemplateType, LongInteger)
 {
-    Ratio<long int> a(1, 2);
+    RatioGenerator<long int> gen = RatioGenerator<long int>();
+    Ratio<long int> a = gen.get();
 
-    EXPECT_TRUE(typeid(long int) == typeid(a.numerator));
+    EXPECT_TRUE(typeid(long int) == typeid(a.getNumerator()));
 }
 
 TEST(TemplateType, NegativeDenominator)
 {
     Ratio<int> a(1, -2);
 
-    EXPECT_FALSE(a.denominator < 0);
-    EXPECT_EQ(-1, a.numerator);
-    EXPECT_EQ(2, a.denominator);
+    EXPECT_FALSE(a.getDenominator() < 0);
+    EXPECT_EQ(-1, a.getNumerator());
+    EXPECT_EQ(2, a.getDenominator());
 }
 
 TEST(TemplateType, SignCorrection)
 {
     Ratio<int> a(-1, -2);
 
-    EXPECT_FALSE(a.denominator < 0);
-    EXPECT_EQ(1, a.numerator);
-    EXPECT_EQ(2, a.denominator);
+    EXPECT_FALSE(a.getDenominator() < 0);
+    EXPECT_EQ(1, a.getNumerator());
+    EXPECT_EQ(2, a.getDenominator());
+}
+
+// Constructor tests
+
+TEST(Constructor, ClassicExplicit)
+{
+    Ratio<int> a(1, 2);
+
+    EXPECT_EQ(1, a.getNumerator());
+    EXPECT_EQ(2, a.getDenominator());
+}
+
+TEST(Constructor, Integer)
+{
+    Ratio<int> a(5); // integer
+
+    EXPECT_EQ(5, a.getNumerator());
+    EXPECT_EQ(1, a.getDenominator());
 }
 
 // Simplify tests
@@ -64,8 +77,8 @@ TEST(Simplify, Constructor)
 {
     Ratio<int> a(2, 4);
 
-    EXPECT_EQ(1, a.numerator);
-    EXPECT_EQ(2, a.denominator);
+    EXPECT_EQ(1, a.getNumerator());
+    EXPECT_EQ(2, a.getDenominator());
 }
 
 // Operator tests
@@ -77,8 +90,8 @@ TEST(SimpleOperators, Addition)
 
     Ratio<int> c = a + b;
 
-    EXPECT_EQ(5, c.numerator);
-    EXPECT_EQ(6, c.denominator);
+    EXPECT_EQ(5, c.getNumerator());
+    EXPECT_EQ(6, c.getDenominator());
 }
 
 TEST(Simplify, Addition)
@@ -88,8 +101,28 @@ TEST(Simplify, Addition)
 
     Ratio<int> c = a + b;
 
-    EXPECT_EQ(3, c.numerator);
-    EXPECT_EQ(2, c.denominator);
+    EXPECT_EQ(3, c.getNumerator());
+    EXPECT_EQ(2, c.getDenominator());
+}
+
+TEST(SimpleOperators, AdditionBatch)
+{
+    RatioGenerator<int> gen = RatioGenerator<int>();
+    Ratio<int> a[100], b[100], res[100];
+
+    for (int i = 0; i < 100; i++)
+    {
+        a[i] = gen.get();
+        b[i] = gen.get();
+        // TODO res[i] = manually calculated ratio;
+    }
+
+    for (int i = 0; i < 100; i++)
+    {
+        Ratio<int> c = a[i] + b[i];
+        EXPECT_EQ(c.getNumerator(), res[i].getNumerator());
+        EXPECT_EQ(c.getDenominator(), res[i].getDenominator());
+    }
 }
 
 TEST(SimpleOperators, Subtraction)
@@ -99,19 +132,29 @@ TEST(SimpleOperators, Subtraction)
 
     Ratio<int> c = a - b;
 
-    EXPECT_EQ(1, c.numerator)
-    EXPECT_EQ(6, c.denominator);
+    EXPECT_EQ(1, c.getNumerator());
+    EXPECT_EQ(6, c.getDenominator());
 }
 
-// TEST(Simplify, Subtraction) {
-//     Ratio<int> a (1, 1);
-//     Ratio<int> b (1, 2);
+TEST(SimpleOperators, SubtractionBatch)
+{
+    RatioGenerator<int> gen = RatioGenerator<int>();
+    Ratio<int> a[100], b[100], res[100];
 
-//     Ratio<int> c = a + b;
+    for (int i = 0; i < 100; i++)
+    {
+        a[i] = gen.get();
+        b[i] = gen.get();
+        // TODO res[i] = manually calculated ratio;
+    }
 
-//     EXPECT_EQ(3, c.numerator);
-//     EXPECT_EQ(2, c.denominator);
-// }
+    for (int i = 0; i < 100; i++)
+    {
+        Ratio<int> c = a[i] - b[i];
+        EXPECT_EQ(c.getNumerator(), res[i].getNumerator());
+        EXPECT_EQ(c.getDenominator(), res[i].getDenominator());
+    }
+}
 
 TEST(SimpleOperators, Multiply)
 {
@@ -120,8 +163,8 @@ TEST(SimpleOperators, Multiply)
 
     Ratio<int> c = a * b;
 
-    EXPECT_EQ(5, c.numerator);
-    EXPECT_EQ(18, c.denominator);
+    EXPECT_EQ(5, c.getNumerator());
+    EXPECT_EQ(18, c.getDenominator());
 }
 
 TEST(Simplify, Multiply)
@@ -131,8 +174,28 @@ TEST(Simplify, Multiply)
 
     Ratio<int> c = a * b;
 
-    EXPECT_EQ(5, c.numerator);
-    EXPECT_EQ(9, c.denominator); // 10 / 18 -> 5 / 9
+    EXPECT_EQ(5, c.getNumerator());
+    EXPECT_EQ(9, c.getDenominator()); // 10 / 18 -> 5 / 9
+}
+
+TEST(SimpleOperators, MultiplyBatch)
+{
+    RatioGenerator<int> gen = RatioGenerator<int>();
+    Ratio<int> a[100], b[100], res[100];
+
+    for (int i = 0; i < 100; i++)
+    {
+        a[i] = gen.get();
+        b[i] = gen.get();
+        // TODO res[i] = manually calculated ratio;
+    }
+
+    for (int i = 0; i < 100; i++)
+    {
+        Ratio<int> c = a[i] * b[i];
+        EXPECT_EQ(c.getNumerator(), res[i].getNumerator());
+        EXPECT_EQ(c.getDenominator(), res[i].getDenominator());
+    }
 }
 
 TEST(SimpleOperators, Division)
@@ -142,8 +205,8 @@ TEST(SimpleOperators, Division)
 
     Ratio<int> c = a / b;
 
-    EXPECT_EQ(10, c.numerator);
-    EXPECT_EQ(21, c.denominator);
+    EXPECT_EQ(10, c.getNumerator());
+    EXPECT_EQ(21, c.getDenominator());
 }
 
 TEST(Simplify, Division)
@@ -153,8 +216,28 @@ TEST(Simplify, Division)
 
     Ratio<int> c = a / b;
 
-    EXPECT_EQ(5, c.numerator);
-    EXPECT_EQ(4, c.denominator);
+    EXPECT_EQ(5, c.getNumerator());
+    EXPECT_EQ(4, c.getDenominator());
+}
+
+TEST(SimpleOperators, DivideBatch)
+{
+    RatioGenerator<int> gen = RatioGenerator<int>();
+    Ratio<int> a[100], b[100], res[100];
+
+    for (int i = 0; i < 100; i++)
+    {
+        a[i] = gen.get();
+        b[i] = gen.get();
+        // TODO res[i] = manually calculated ratio;
+    }
+
+    for (int i = 0; i < 100; i++)
+    {
+        Ratio<int> c = a[i] / b[i];
+        EXPECT_EQ(c.getNumerator(), res[i].getNumerator());
+        EXPECT_EQ(c.getDenominator(), res[i].getDenominator());
+    }
 }
 
 TEST(StandardOperators, Absolute)
@@ -162,8 +245,8 @@ TEST(StandardOperators, Absolute)
     Ratio<int> a(-5, 1);
     a = a.abs();
 
-    EXPECT_EQ(5, a.numerator);
-    EXPECT_EQ(1, a.denominator);
+    EXPECT_EQ(5, a.getNumerator());
+    EXPECT_EQ(1, a.getDenominator());
 }
 
 TEST(SimpleOperators, UnaryMinus)
@@ -171,8 +254,8 @@ TEST(SimpleOperators, UnaryMinus)
     Ratio<int> a(2, 3);
     Ratio<int> b = -a;
 
-    EXPECT_EQ(-2, b.numerator);
-    EXPECT_EQ(3, b.denominator);
+    EXPECT_EQ(-2, b.getNumerator());
+    EXPECT_EQ(3, b.getDenominator());
 }
 
 TEST(StandardOperators, Truncate)
@@ -180,8 +263,8 @@ TEST(StandardOperators, Truncate)
     Ratio<int> a(2, 3);
     Ratio<int> b = a.truncate();
 
-    EXPECT_EQ(0, b.numerator);
-    EXPECT_EQ(1, b.denominator);
+    EXPECT_EQ(0, b.getNumerator());
+    EXPECT_EQ(1, b.getDenominator());
 }
 
 TEST(StandardOperators, RoundUpper)
@@ -189,8 +272,8 @@ TEST(StandardOperators, RoundUpper)
     Ratio<int> a(2, 3);
     Ratio<int> b = a.round();
 
-    EXPECT_EQ(1, b.numerator);
-    EXPECT_EQ(1, b.denominator);
+    EXPECT_EQ(1, b.getNumerator());
+    EXPECT_EQ(1, b.getDenominator());
 }
 
 TEST(StandardOperators, RoundLower)
@@ -198,8 +281,8 @@ TEST(StandardOperators, RoundLower)
     Ratio<int> a(1, 3);
     Ratio<int> b = a.round();
 
-    EXPECT_EQ(0, a.numerator);
-    EXPECT_EQ(1, b.denominator);
+    EXPECT_EQ(0, a.getNumerator());
+    EXPECT_EQ(1, b.getDenominator());
 }
 
 TEST(StandardOperators, Inverse)
@@ -207,8 +290,8 @@ TEST(StandardOperators, Inverse)
     Ratio<int> a(1, 3);
     Ratio<int> b = a.inv();
 
-    EXPECT_EQ(b.denominator, a.numerator);
-    EXPECT_EQ(a.denominator, b.numerator);
+    EXPECT_EQ(b.getDenominator(), a.getNumerator());
+    EXPECT_EQ(a.getDenominator(), b.getNumerator());
 }
 
 TEST(StandardOperators, NegativeInverse)
@@ -216,8 +299,8 @@ TEST(StandardOperators, NegativeInverse)
     Ratio<int> a(-1, 3);
     Ratio<int> b = a.inv();
 
-    EXPECT_EQ(-b.denominator, a.numerator);
-    EXPECT_EQ(a.denominator, b.numerator);
+    EXPECT_EQ(-b.getDenominator(), a.getNumerator());
+    EXPECT_EQ(a.getDenominator(), b.getNumerator());
 }
 
 // Comparison tests
@@ -335,25 +418,6 @@ TEST(ComparisonOperators, GreaterEqualWhenTrue)
 }
 
 // Exception tests
-// TODO
-
-// Constructor tests
-
-TEST(Constructor, ClassicExplicit)
-{
-    Ratio<int> a(1, 2);
-
-    EXPECT_EQ(1, a.numerator);
-    EXPECT_EQ(2, a.denominator);
-}
-
-TEST(Constructor, Integer)
-{
-    Ratio<int> a(5); // integer
-
-    EXPECT_EQ(5, a.numerator);
-    EXPECT_EQ(1, a.denominator);
-}
 
 // Methods
 

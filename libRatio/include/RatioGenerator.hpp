@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Ratio.hpp"
 
 #include <random>
@@ -7,7 +9,7 @@ class RatioGenerator
 {
 private:
     static const uint DEFAULT_MAX_VALUE = 20;
-    const std::mt19937 generator(0);
+    const std::mt19937 generator = std::mt19937(0);
     std::uniform_int_distribution<unsigned int> uniformPositiveIntDistribution;
     std::uniform_int_distribution<T> uniformIntDistribution;
 
