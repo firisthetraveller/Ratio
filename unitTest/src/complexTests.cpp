@@ -8,7 +8,7 @@
 
 // Conversions
 
-TEST(Conversion, NegativeConversion)
+TEST(Conversion, NegativeConversionA)
 {
     Ratio<int> a = Ratio<int>::convertFromFloat(-0.5f);
 
@@ -16,16 +16,44 @@ TEST(Conversion, NegativeConversion)
     EXPECT_EQ(2, a.getDenominator());
 }
 
+TEST(Conversion, NegativeConversionB)
+{
+    Ratio<int> a = Ratio<int>::convertFromFloat(-5.0);
+
+    EXPECT_EQ(-5, a.getNumerator());
+    EXPECT_EQ(1, a.getDenominator());
+}
+
 // Methods
 
-// TODO cos
-TEST(ComplexOperators, BasicCosine)
+// // TODO cos
+TEST(ComplexOperators, BasicCosine0)
 {
     // cos(0) = 1
-    Ratio<int> a = Ratio<int>::ZERO;
-    Ratio<int> b = Ratio<int>::cos(a).simplify();
+    Ratio<int> a = Ratio<int>::ZERO();
+    Ratio<int> b = a.cos();
 
     EXPECT_EQ(1, b.getNumerator());
+    EXPECT_EQ(1, b.getDenominator());
+}
+
+TEST(ComplexOperators, BasicCosineHalfPi)
+{
+    // cos(0) = 1
+    Ratio<int> a = Ratio<int>::convertFromFloat(M_1_PI / 2);
+    Ratio<int> b = a.cos();
+
+    EXPECT_EQ(0, b.getNumerator());
+    EXPECT_EQ(1, b.getDenominator());
+}
+
+TEST(ComplexOperators, BasicCosineMinusPi)
+{
+    // cos(0) = 1
+    Ratio<int> a = Ratio<int>::convertFromFloat(-M_1_PI);
+    Ratio<int> b = a.cos();
+
+    EXPECT_EQ(-1, b.getNumerator());
     EXPECT_EQ(1, b.getDenominator());
 }
 
@@ -33,8 +61,8 @@ TEST(ComplexOperators, BasicCosine)
 TEST(ComplexOperators, BasicExponential)
 {
     // exp(0) = 1
-    Ratio<int> a = Ratio<int>::ZERO;
-    Ratio<int> b = Ratio<int>::exp(a).simplify();
+    Ratio<int> a = Ratio<int>::ZERO();
+    Ratio<int> b = a.exp();
 
     EXPECT_EQ(1, b.getNumerator());
     EXPECT_EQ(1, b.getDenominator());
@@ -45,7 +73,7 @@ TEST(ComplexOperators, BasicSquareRoot)
 {
     // sqrt(1) = 1
     Ratio<int> a(1, 1);
-    Ratio<int> b = Ratio<int>::exp(a).simplify();
+    Ratio<int> b = a.exp();
 
     EXPECT_EQ(1, b.getNumerator());
     EXPECT_EQ(1, b.getDenominator());
@@ -54,9 +82,9 @@ TEST(ComplexOperators, BasicSquareRoot)
 TEST(ComplexOperators, NaturalSquareRoot)
 {
     // Exact value with only getNumerator()
-    Ratio<int> a = Ratio<int>::sqrt(Ratio<int>(49, 1));
-    Ratio<int> b = Ratio<int>::sqrt(Ratio<int>(25, 1));
-    Ratio<int> c = Ratio<int>::sqrt(Ratio<int>(121, 1));
+    Ratio<int> a = Ratio<int>(49, 1).sqrt();
+    Ratio<int> b = Ratio<int>(25, 1).sqrt();
+    Ratio<int> c = Ratio<int>(121, 1).sqrt();
 
     EXPECT_EQ(7, a.getNumerator());
     EXPECT_EQ(1, a.getDenominator());

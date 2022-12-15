@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.13)
 
 # give a name to the project
 project(Ratio LANGUAGES C CXX)
+set (CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED On)
 
 # automatic get all files in a directory
 file(GLOB_RECURSE source_files src/*.cpp)
@@ -22,7 +24,7 @@ file(GLOB_RECURSE header_files include/*.hpp)
 add_library(Ratio ${source_files} ${header_files})
 
 # compilation flags
-target_compile_features(Ratio PRIVATE cxx_std_11) # use at least c++ 11
+target_compile_features(Ratio PRIVATE cxx_std_17) # use at least c++ 11
 if (MSVC)
     target_compile_options(Ratio PRIVATE /W3)
 else()
