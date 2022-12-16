@@ -141,4 +141,36 @@ Ratio<T> Ratio<T>::convertFromFloat(float value, int nbIter)
     return ((value < 0) ? Ratio<T>(-1) : Ratio<T>(1)) * convertFromFloatAux(std::abs(value), nbIter);
 }
 
+template <typename T>
+const Ratio<T> Ratio<T>::ZERO()
+{
+    return Ratio<T>(static_cast<T>(0), 1);
+}
+
+template <typename T>
+const Ratio<T> Ratio<T>::PLUS_INF()
+{
+    return Ratio<T>(static_cast<T>(1), 0);
+}
+
+template <typename T>
+const Ratio<T> Ratio<T>::MINUS_INF()
+{
+    return Ratio<T>(static_cast<T>(-1), 0);
+}
+
+template <typename T>
+void Ratio<T>::simplify()
+{
+    auto gcd = std::gcd(m_numerator, m_denominator);
+    m_numerator /= gcd;
+    m_denominator /= gcd;
+}
+
+template <typename T>
+double Ratio<T>::eval() const
+{
+    return m_numerator / double(m_denominator);
+}
+
 #endif
