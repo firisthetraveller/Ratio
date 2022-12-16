@@ -160,6 +160,10 @@ template <typename T> double Ratio<T>::eval() const {
   return m_numerator / double(m_denominator);
 }
 
+/****************************
+ * CONSTRUCTORS
+ ****************************/
+
 template <typename T> Ratio<T>::Ratio(T n) : m_numerator(n), m_denominator(1) {
   simplify();
 }
@@ -169,6 +173,10 @@ Ratio<T>::Ratio(T a, int b) : m_numerator(a), m_denominator(b) {
   simplify();
 }
 
+/****************************
+ * GETTERS
+ ****************************/
+
 template <typename T> constexpr T Ratio<T>::getNumerator() const {
   return m_numerator;
 }
@@ -176,6 +184,10 @@ template <typename T> constexpr T Ratio<T>::getNumerator() const {
 template <typename T> constexpr unsigned int Ratio<T>::getDenominator() const {
   return m_denominator;
 }
+
+/****************************
+ * OPERATORS
+ ****************************/
 
 template <typename T>
 constexpr Ratio<T> Ratio<T>::operator+(const Ratio<T> &r) const {
@@ -206,6 +218,19 @@ constexpr Ratio<T> Ratio<T>::operator*(double scalar) const {
 template <typename T>
 constexpr Ratio<T> Ratio<T>::operator/(const Ratio<T> &r) const {
   return Ratio<T>(m_numerator * r.m_denominator, m_denominator * r.m_numerator);
+}
+
+/****************************
+ *  COMPARISON OPERATORS
+ ****************************/
+template <typename T>
+constexpr bool Ratio<T>::operator<(const Ratio<T> &r) const {
+  return m_numerator * r.m_denominator < r.m_numerator * m_denominator;
+}
+
+template <typename T>
+constexpr bool Ratio<T>::operator==(const Ratio<T> &r) const {
+  return m_numerator == r.m_numerator && m_denominator == r.m_denominator;
 }
 
 #endif

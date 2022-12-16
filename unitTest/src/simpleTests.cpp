@@ -321,21 +321,19 @@ TEST(SimpleOperators, UnaryMinus) {
 
 // // // Comparison tests
 
-// TEST(ComparisonOperators, LowerWhenTrue)
-// {
-//     Ratio<int> a(3, 5);
-//     Ratio<int> b(6, 7);
+TEST(ComparisonOperators, LowerWhenTrue) {
+  Ratio<int> a(3, 5);
+  Ratio<int> b(6, 7);
 
-//     EXPECT_TRUE(a < b);
-// }
+  EXPECT_TRUE(a < b);
+}
 
-// TEST(ComparisonOperators, LowerWhenFalse)
-// {
-//     Ratio<int> a(3, 5);
-//     Ratio<int> b(6, 7);
+TEST(ComparisonOperators, LowerWhenFalse) {
+  Ratio<int> a(3, 5);
+  Ratio<int> b(6, 7);
 
-//     EXPECT_FALSE(b < a);
-// }
+  EXPECT_FALSE(b < a);
+}
 
 // TEST(ComparisonOperators, LowerEqualWhenEqualA)
 // {
@@ -369,47 +367,44 @@ TEST(SimpleOperators, UnaryMinus) {
 //     EXPECT_FALSE(a <= b);
 // }
 
-// TEST(ComparisonOperators, EqualWhenFalse)
-// {
-//     Ratio<int> a(4, 5);
-//     Ratio<int> b(3, 5);
+TEST(ComparisonOperators, EqualWhenFalse) {
+  Ratio<int> a(4, 5);
+  Ratio<int> b(3, 5);
 
-//     EXPECT_FALSE(a == b);
+  EXPECT_FALSE(a == b);
+}
+
+TEST(ComparisonOperators, EqualWhenTrue) {
+  Ratio<int> a(4, 5);
+  Ratio<int> b(8, 10);
+
+  EXPECT_TRUE(a == b);
+}
+
+// TEST(ComparisonOperators, EqualWhenTrueB) {
+//   Ratio<int> a(10, 7);
+//   Ratio<int> b(4, 7);
+
+//   EXPECT_EQ(a + b, 2);
 // }
 
-// TEST(ComparisonOperators, EqualWhenTrue)
-// {
-//     Ratio<int> a(4, 5);
-//     Ratio<int> b(8, 10);
+/*TEST(ComparisonOperators, EqualIntTrue)
+{
+    Ratio<int> a(4);
 
-//     EXPECT_TRUE(a == b);
+    EXPECT_TRUE(a == 4);
+    EXPECT_TRUE(4 == a);
+    EXPECT_EQ(4, a);
+    EXPECT_EQ(a, 4);
+}*/
+
+// TEST(ComparisonOperators, EqualIntFalse)
+// {
+//     Ratio<int> a(5);
+
+//     EXPECT_NE(a, 4);
+//     EXPECT_NE(4, a);
 // }
-
-// TEST(ComparisonOperators, EqualWhenTrueB)
-// {
-//     Ratio<int> a(10, 7);
-//     Ratio<int> b(4, 7);
-
-//     EXPECT_EQ(a + b, 2);
-// }
-
-// /*TEST(ComparisonOperators, EqualIntTrue)
-// {
-//     Ratio<int> a(4);
-
-//     EXPECT_TRUE(a == 4);
-//     EXPECT_TRUE(4 == a);
-//     EXPECT_EQ(4, a);
-//     EXPECT_EQ(a, 4);
-// }*/
-
-// // TEST(ComparisonOperators, EqualIntFalse)
-// // {
-// //     Ratio<int> a(5);
-
-// //     EXPECT_NE(a, 4);
-// //     EXPECT_NE(4, a);
-// // }
 
 // TEST(ComparisonOperators, GreaterWhenFalse)
 // {
