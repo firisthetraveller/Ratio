@@ -8,19 +8,22 @@
 
 const uint DEFAULT_MAX_VALUE = 20;
 
-TEST(DefaultValues, Zero) {
-  EXPECT_EQ(0, Ratio<int>::ZERO().getNumerator());
-  EXPECT_EQ(1, Ratio<int>::ZERO().getDenominator());
+TEST(DefaultValues, Zero)
+{
+    EXPECT_EQ(0, Ratio<int>::ZERO().getNumerator());
+    EXPECT_EQ(1, Ratio<int>::ZERO().getDenominator());
 }
 
-TEST(DefaultValues, Infinity) {
-  EXPECT_EQ(1, Ratio<int>::PLUS_INF().getNumerator());
-  EXPECT_EQ(0, Ratio<int>::PLUS_INF().getDenominator());
+TEST(DefaultValues, Infinity)
+{
+    EXPECT_EQ(1, Ratio<int>::PLUS_INF().getNumerator());
+    EXPECT_EQ(0, Ratio<int>::PLUS_INF().getDenominator());
 }
 
-TEST(DefaultValues, NegativeInfinity) {
-  EXPECT_EQ(-1, Ratio<int>::MINUS_INF().getNumerator());
-  EXPECT_EQ(0, Ratio<int>::MINUS_INF().getDenominator());
+TEST(DefaultValues, NegativeInfinity)
+{
+    EXPECT_EQ(-1, Ratio<int>::MINUS_INF().getNumerator());
+    EXPECT_EQ(0, Ratio<int>::MINUS_INF().getDenominator());
 }
 
 // // Type tests
@@ -59,49 +62,54 @@ TEST(DefaultValues, NegativeInfinity) {
 
 // // Constructor tests
 
-TEST(Constructor, ClassicExplicit) {
-  Ratio<int> a(1, 2);
+TEST(Constructor, ClassicExplicit)
+{
+    Ratio<int> a(1, 2);
 
-  EXPECT_EQ(1, a.getNumerator());
-  EXPECT_EQ(2, a.getDenominator());
+    EXPECT_EQ(1, a.getNumerator());
+    EXPECT_EQ(2, a.getDenominator());
 }
 
-TEST(Constructor, Integer) {
-  Ratio<int> a(5); // integer
+TEST(Constructor, Integer)
+{
+    Ratio<int> a(5); // integer
 
-  EXPECT_EQ(5, a.getNumerator());
-  EXPECT_EQ(1, a.getDenominator());
+    EXPECT_EQ(5, a.getNumerator());
+    EXPECT_EQ(1, a.getDenominator());
 }
 
 // Simplify tests
 
-TEST(Simplify, Constructor) {
-  Ratio<int> a(2, 4);
+TEST(Simplify, Constructor)
+{
+    Ratio<int> a(2, 4);
 
-  EXPECT_EQ(1, a.getNumerator());
-  EXPECT_EQ(2, a.getDenominator());
+    EXPECT_EQ(1, a.getNumerator());
+    EXPECT_EQ(2, a.getDenominator());
 }
 
 // // Operator tests
 
-TEST(SimpleOperators, Addition) {
-  Ratio<int> a(1, 2);
-  Ratio<int> b(1, 3);
+TEST(SimpleOperators, Addition)
+{
+    Ratio<int> a(1, 2);
+    Ratio<int> b(1, 3);
 
-  Ratio<int> c = a + b;
+    Ratio<int> c = a + b;
 
-  EXPECT_EQ(5, c.getNumerator());
-  EXPECT_EQ(6, c.getDenominator());
+    EXPECT_EQ(5, c.getNumerator());
+    EXPECT_EQ(6, c.getDenominator());
 }
 
-TEST(Simplify, Addition) {
-  Ratio<int> a(5, 6);
-  Ratio<int> b(2, 3);
+TEST(Simplify, Addition)
+{
+    Ratio<int> a(5, 6);
+    Ratio<int> b(2, 3);
 
-  Ratio<int> c = a + b;
+    Ratio<int> c = a + b;
 
-  EXPECT_EQ(3, c.getNumerator());
-  EXPECT_EQ(2, c.getDenominator());
+    EXPECT_EQ(3, c.getNumerator());
+    EXPECT_EQ(2, c.getDenominator());
 }
 
 // // TEST(SimpleOperators, AdditionBatch)
@@ -129,14 +137,15 @@ TEST(Simplify, Addition) {
 // //     }
 // // }
 
-TEST(SimpleOperators, Subtraction) {
-  Ratio<int> a(5, 6);
-  Ratio<int> b(2, 3);
+TEST(SimpleOperators, Subtraction)
+{
+    Ratio<int> a(5, 6);
+    Ratio<int> b(2, 3);
 
-  Ratio<int> c = a - b;
+    Ratio<int> c = a - b;
 
-  EXPECT_EQ(1, c.getNumerator());
-  EXPECT_EQ(6, c.getDenominator());
+    EXPECT_EQ(1, c.getNumerator());
+    EXPECT_EQ(6, c.getDenominator());
 }
 
 // // TEST(SimpleOperators, SubtractionBatch)
@@ -163,34 +172,37 @@ TEST(SimpleOperators, Subtraction) {
 // //     }
 // // }
 
-TEST(SimpleOperators, Multiply) {
-  Ratio<int> a(5, 6);
-  Ratio<int> b(1, 3);
+TEST(SimpleOperators, Multiply)
+{
+    Ratio<int> a(5, 6);
+    Ratio<int> b(1, 3);
 
-  Ratio<int> c = a * b;
+    Ratio<int> c = a * b;
 
-  EXPECT_EQ(5, c.getNumerator());
-  EXPECT_EQ(18, c.getDenominator());
+    EXPECT_EQ(5, c.getNumerator());
+    EXPECT_EQ(18, c.getDenominator());
 }
 
-TEST(Simplify, Multiply) {
-  Ratio<int> a(5, 6);
-  Ratio<int> b(2, 3);
+TEST(Simplify, Multiply)
+{
+    Ratio<int> a(5, 6);
+    Ratio<int> b(2, 3);
 
-  Ratio<int> c = a * b;
+    Ratio<int> c = a * b;
 
-  EXPECT_EQ(5, c.getNumerator());
-  EXPECT_EQ(9, c.getDenominator()); // 10 / 18 -> 5 / 9
+    EXPECT_EQ(5, c.getNumerator());
+    EXPECT_EQ(9, c.getDenominator()); // 10 / 18 -> 5 / 9
 }
 
-TEST(Simplify, MultiplyScalar) {
-  Ratio<int> a(5, 6);
-  double b(3.0);
+TEST(Simplify, MultiplyScalar)
+{
+    Ratio<int> a(5, 6);
+    double b(3.0);
 
-  Ratio<int> c = a * b;
+    Ratio<int> c = a * b;
 
-  EXPECT_EQ(5, c.getNumerator());
-  EXPECT_EQ(2, c.getDenominator());
+    EXPECT_EQ(5, c.getNumerator());
+    EXPECT_EQ(2, c.getDenominator());
 }
 
 // // TEST(SimpleOperators, MultiplyBatch)
@@ -217,24 +229,26 @@ TEST(Simplify, MultiplyScalar) {
 // //     }
 // // }
 
-TEST(SimpleOperators, Division) {
-  Ratio<int> a(5, 3);
-  Ratio<int> b(7, 2);
+TEST(SimpleOperators, Division)
+{
+    Ratio<int> a(5, 3);
+    Ratio<int> b(7, 2);
 
-  Ratio<int> c = a / b;
+    Ratio<int> c = a / b;
 
-  EXPECT_EQ(10, c.getNumerator());
-  EXPECT_EQ(21, c.getDenominator());
+    EXPECT_EQ(10, c.getNumerator());
+    EXPECT_EQ(21, c.getDenominator());
 }
 
-TEST(Simplify, Division) {
-  Ratio<int> a(5, 6);
-  Ratio<int> b(2, 3);
+TEST(Simplify, Division)
+{
+    Ratio<int> a(5, 6);
+    Ratio<int> b(2, 3);
 
-  Ratio<int> c = a / b;
+    Ratio<int> c = a / b;
 
-  EXPECT_EQ(5, c.getNumerator());
-  EXPECT_EQ(4, c.getDenominator());
+    EXPECT_EQ(5, c.getNumerator());
+    EXPECT_EQ(4, c.getDenominator());
 }
 
 // // TEST(SimpleOperators, DivideBatch)
@@ -266,12 +280,13 @@ TEST(Simplify, Division) {
 //     EXPECT_EQ(1, a.getDenominator());
 // }
 
-TEST(SimpleOperators, UnaryMinus) {
-  Ratio<int> a(2, 3);
-  Ratio<int> b = -a;
+TEST(SimpleOperators, UnaryMinus)
+{
+    Ratio<int> a(2, 3);
+    Ratio<int> b = -a;
 
-  EXPECT_EQ(-2, b.getNumerator());
-  EXPECT_EQ(3, b.getDenominator());
+    EXPECT_EQ(-2, b.getNumerator());
+    EXPECT_EQ(3, b.getDenominator());
 }
 
 // TEST(StandardOperators, Truncate)
@@ -321,18 +336,24 @@ TEST(SimpleOperators, UnaryMinus) {
 
 // // // Comparison tests
 
-TEST(ComparisonOperators, LowerWhenTrue) {
-  Ratio<int> a(3, 5);
-  Ratio<int> b(6, 7);
+TEST(ComparisonOperators, LowerWhenTrue)
+{
+    Ratio<int> a(3, 5);
+    Ratio<int> b(6, 7);
 
-  EXPECT_TRUE(a < b);
+    EXPECT_TRUE(a < b);
+    EXPECT_TRUE(Ratio<int>(1, 5) < Ratio<int>(3, 2));
+    EXPECT_TRUE(Ratio<int>(1, 2) < Ratio<int>(9, 6));
+    EXPECT_TRUE(Ratio<int>(2) < Ratio<int>(5));
+    EXPECT_TRUE(Ratio<int>(2) < Ratio<int>(5, 2));
 }
 
-TEST(ComparisonOperators, LowerWhenFalse) {
-  Ratio<int> a(3, 5);
-  Ratio<int> b(6, 7);
+TEST(ComparisonOperators, LowerWhenFalse)
+{
+    Ratio<int> a(3, 5);
+    Ratio<int> b(6, 7);
 
-  EXPECT_FALSE(b < a);
+    EXPECT_FALSE(b < a);
 }
 
 // TEST(ComparisonOperators, LowerEqualWhenEqualA)
@@ -351,34 +372,44 @@ TEST(ComparisonOperators, LowerWhenFalse) {
 //     EXPECT_TRUE(b <= a);
 // }
 
-// TEST(ComparisonOperators, LowerEqualWhenTrue)
-// {
-//     Ratio<int> a(4, 5);
-//     Ratio<int> b(3, 5);
+TEST(ComparisonOperators, LowerEqualWhenTrue)
+{
+    Ratio<int> a(4, 5);
+    Ratio<int> b(3, 5);
 
-//     EXPECT_TRUE(b <= a);
-// }
-
-// TEST(ComparisonOperators, LowerEqualWhenFalse)
-// {
-//     Ratio<int> a(4, 5);
-//     Ratio<int> b(3, 5);
-
-//     EXPECT_FALSE(a <= b);
-// }
-
-TEST(ComparisonOperators, EqualWhenFalse) {
-  Ratio<int> a(4, 5);
-  Ratio<int> b(3, 5);
-
-  EXPECT_FALSE(a == b);
+    EXPECT_TRUE(b <= a);
+    EXPECT_TRUE(Ratio<int>(1, 5) <= Ratio<int>(3, 2));
+    EXPECT_TRUE(Ratio<int>(1, 2) <= Ratio<int>(9, 6));
+    EXPECT_TRUE(Ratio<int>(2) <= Ratio<int>(5));
+    EXPECT_TRUE(Ratio<int>(2) <= Ratio<int>(5, 2));
 }
 
-TEST(ComparisonOperators, EqualWhenTrue) {
-  Ratio<int> a(4, 5);
-  Ratio<int> b(8, 10);
+TEST(ComparisonOperators, LowerEqualWhenFalse)
+{
+    Ratio<int> a(4, 5);
+    Ratio<int> b(3, 5);
 
-  EXPECT_TRUE(a == b);
+    EXPECT_FALSE(a <= b);
+    EXPECT_FALSE(Ratio<int>(3, 2) <= Ratio<int>(1, 5));
+    EXPECT_FALSE(Ratio<int>(9, 6) <= Ratio<int>(1, 2));
+    EXPECT_FALSE(Ratio<int>(5) <= Ratio<int>(2));
+    EXPECT_FALSE(Ratio<int>(5, 2) <= Ratio<int>(2));
+}
+
+TEST(ComparisonOperators, EqualWhenFalse)
+{
+    Ratio<int> a(4, 5);
+    Ratio<int> b(3, 5);
+
+    EXPECT_FALSE(a == b);
+}
+
+TEST(ComparisonOperators, EqualWhenTrue)
+{
+    Ratio<int> a(4, 5);
+    Ratio<int> b(8, 10);
+
+    EXPECT_TRUE(a == b);
 }
 
 // TEST(ComparisonOperators, EqualWhenTrueB) {
@@ -406,21 +437,29 @@ TEST(ComparisonOperators, EqualWhenTrue) {
 //     EXPECT_NE(4, a);
 // }
 
-// TEST(ComparisonOperators, GreaterWhenFalse)
-// {
-//     Ratio<int> a(3, 5);
-//     Ratio<int> b(6, 7);
+TEST(ComparisonOperators, GreaterWhenFalse)
+{
+    Ratio<int> a(3, 5);
+    Ratio<int> b(6, 7);
 
-//     EXPECT_FALSE(a > b);
-// }
+    EXPECT_FALSE(a > b);
+    EXPECT_FALSE(Ratio<int>(1, 5) > Ratio<int>(3, 2));
+    EXPECT_FALSE(Ratio<int>(1, 2) > Ratio<int>(9, 6));
+    EXPECT_FALSE(Ratio<int>(2) > Ratio<int>(5));
+    EXPECT_FALSE(Ratio<int>(2) > Ratio<int>(5, 2));
+}
 
-// TEST(ComparisonOperators, GreaterWhenTrue)
-// {
-//     Ratio<int> a(3, 5);
-//     Ratio<int> b(6, 7);
+TEST(ComparisonOperators, GreaterWhenTrue)
+{
+    Ratio<int> a(3, 5);
+    Ratio<int> b(6, 7);
 
-//     EXPECT_TRUE(b > a);
-// }
+    EXPECT_TRUE(b > a);
+    EXPECT_TRUE(Ratio<int>(3, 2) > Ratio<int>(1, 5));
+    EXPECT_TRUE(Ratio<int>(9, 6) > Ratio<int>(1, 2));
+    EXPECT_TRUE(Ratio<int>(5) > Ratio<int>(2));
+    EXPECT_TRUE(Ratio<int>(5, 2) > Ratio<int>(2));
+}
 
 // TEST(ComparisonOperators, GreaterEqualWhenEqualA)
 // {
@@ -438,21 +477,29 @@ TEST(ComparisonOperators, EqualWhenTrue) {
 //     EXPECT_TRUE(b >= a);
 // }
 
-// TEST(ComparisonOperators, GreaterEqualWhenFalse)
-// {
-//     Ratio<int> a(4, 5);
-//     Ratio<int> b(3, 5);
+TEST(ComparisonOperators, GreaterEqualWhenFalse)
+{
+    Ratio<int> a(4, 5);
+    Ratio<int> b(3, 5);
 
-//     EXPECT_FALSE(b >= a);
-// }
+    EXPECT_FALSE(b >= a);
+    EXPECT_FALSE(Ratio<int>(1, 5) >= Ratio<int>(3, 2));
+    EXPECT_FALSE(Ratio<int>(1, 2) >= Ratio<int>(9, 6));
+    EXPECT_FALSE(Ratio<int>(2) >= Ratio<int>(5));
+    EXPECT_FALSE(Ratio<int>(2) >= Ratio<int>(5, 2));
+}
 
-// TEST(ComparisonOperators, GreaterEqualWhenTrue)
-// {
-//     Ratio<int> a(4, 5);
-//     Ratio<int> b(3, 5);
+TEST(ComparisonOperators, GreaterEqualWhenTrue)
+{
+    Ratio<int> a(4, 5);
+    Ratio<int> b(3, 5);
 
-//     EXPECT_TRUE(a >= b);
-// }
+    EXPECT_TRUE(a >= b);
+    EXPECT_TRUE(Ratio<int>(3, 2) >= Ratio<int>(1, 5));
+    EXPECT_TRUE(Ratio<int>(9, 6) >= Ratio<int>(1, 2));
+    EXPECT_TRUE(Ratio<int>(5) >= Ratio<int>(2));
+    EXPECT_TRUE(Ratio<int>(5, 2) >= Ratio<int>(2));
+}
 
 // // Exception tests
 
