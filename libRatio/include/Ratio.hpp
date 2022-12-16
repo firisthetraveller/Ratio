@@ -7,6 +7,11 @@
 
 /// \class Ratio
 /// \brief A rational is defined by the ratio of two integers a and b.
+/// \attention When Ratio is used with T: a floating point type, it crashes automatically
+/// with a very long error paragraph, because this class uses std::gcd and it does not
+/// work with floating point types. Since the class is not supposed to work with floating point
+/// numbers, it works as intended with this crash, though it would be better to have a cleaner
+/// error line for that.
 template <class T>
 class Ratio {
 private:
