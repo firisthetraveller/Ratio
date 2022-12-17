@@ -392,6 +392,20 @@ TEST(ComparisonOperators, EqualWhenTrue) {
     EXPECT_TRUE(a == b);
 }
 
+TEST(ComparisonOperators, DifferentWhenTrue) {
+    Ratio<int> a(4, 5);
+    Ratio<int> b(3, 5);
+
+    EXPECT_TRUE(a != b);
+}
+
+TEST(ComparisonOperators, DifferentWhenFalse) {
+    Ratio<int> a(4, 5);
+    Ratio<int> b(8, 10);
+
+    EXPECT_FALSE(a != b);
+}
+
 // TEST(ComparisonOperators, EqualWhenTrueB) {
 //   Ratio<int> a(10, 7);
 //   Ratio<int> b(4, 7);
