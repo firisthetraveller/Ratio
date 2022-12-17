@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include <random>
 #include <vector>
+#include <iostream>
 
 #include "../../libRatio/include/Ratio.hpp"
 
@@ -8,20 +9,17 @@
 
 const uint DEFAULT_MAX_VALUE = 20;
 
-TEST(DefaultValues, Zero)
-{
+TEST(DefaultValues, Zero) {
     EXPECT_EQ(0, Ratio<int>::ZERO().getNumerator());
     EXPECT_EQ(1, Ratio<int>::ZERO().getDenominator());
 }
 
-TEST(DefaultValues, Infinity)
-{
+TEST(DefaultValues, Infinity) {
     EXPECT_EQ(1, Ratio<int>::PLUS_INF().getNumerator());
     EXPECT_EQ(0, Ratio<int>::PLUS_INF().getDenominator());
 }
 
-TEST(DefaultValues, NegativeInfinity)
-{
+TEST(DefaultValues, NegativeInfinity) {
     EXPECT_EQ(-1, Ratio<int>::MINUS_INF().getNumerator());
     EXPECT_EQ(0, Ratio<int>::MINUS_INF().getDenominator());
 }
@@ -62,16 +60,14 @@ TEST(DefaultValues, NegativeInfinity)
 
 // // Constructor tests
 
-TEST(Constructor, ClassicExplicit)
-{
+TEST(Constructor, ClassicExplicit) {
     Ratio<int> a(1, 2);
 
     EXPECT_EQ(1, a.getNumerator());
     EXPECT_EQ(2, a.getDenominator());
 }
 
-TEST(Constructor, Integer)
-{
+TEST(Constructor, Integer) {
     Ratio<int> a(5); // integer
 
     EXPECT_EQ(5, a.getNumerator());
@@ -80,8 +76,7 @@ TEST(Constructor, Integer)
 
 // Simplify tests
 
-TEST(Simplify, Constructor)
-{
+TEST(Simplify, Constructor) {
     Ratio<int> a(2, 4);
 
     EXPECT_EQ(1, a.getNumerator());
@@ -90,8 +85,7 @@ TEST(Simplify, Constructor)
 
 // // Operator tests
 
-TEST(SimpleOperators, Addition)
-{
+TEST(SimpleOperators, Addition) {
     Ratio<int> a(1, 2);
     Ratio<int> b(1, 3);
 
@@ -101,8 +95,7 @@ TEST(SimpleOperators, Addition)
     EXPECT_EQ(6, c.getDenominator());
 }
 
-TEST(Simplify, Addition)
-{
+TEST(Simplify, Addition) {
     Ratio<int> a(5, 6);
     Ratio<int> b(2, 3);
 
@@ -137,8 +130,7 @@ TEST(Simplify, Addition)
 // //     }
 // // }
 
-TEST(SimpleOperators, Subtraction)
-{
+TEST(SimpleOperators, Subtraction) {
     Ratio<int> a(5, 6);
     Ratio<int> b(2, 3);
 
@@ -172,8 +164,7 @@ TEST(SimpleOperators, Subtraction)
 // //     }
 // // }
 
-TEST(SimpleOperators, Multiply)
-{
+TEST(SimpleOperators, Multiply) {
     Ratio<int> a(5, 6);
     Ratio<int> b(1, 3);
 
@@ -183,8 +174,7 @@ TEST(SimpleOperators, Multiply)
     EXPECT_EQ(18, c.getDenominator());
 }
 
-TEST(Simplify, Multiply)
-{
+TEST(Simplify, Multiply) {
     Ratio<int> a(5, 6);
     Ratio<int> b(2, 3);
 
@@ -194,8 +184,7 @@ TEST(Simplify, Multiply)
     EXPECT_EQ(9, c.getDenominator()); // 10 / 18 -> 5 / 9
 }
 
-TEST(Simplify, MultiplyScalar)
-{
+TEST(Simplify, MultiplyScalar) {
     Ratio<int> a(5, 6);
     double b(3.0);
 
@@ -229,8 +218,7 @@ TEST(Simplify, MultiplyScalar)
 // //     }
 // // }
 
-TEST(SimpleOperators, Division)
-{
+TEST(SimpleOperators, Division) {
     Ratio<int> a(5, 3);
     Ratio<int> b(7, 2);
 
@@ -240,8 +228,7 @@ TEST(SimpleOperators, Division)
     EXPECT_EQ(21, c.getDenominator());
 }
 
-TEST(Simplify, Division)
-{
+TEST(Simplify, Division) {
     Ratio<int> a(5, 6);
     Ratio<int> b(2, 3);
 
@@ -280,8 +267,7 @@ TEST(Simplify, Division)
 //     EXPECT_EQ(1, a.getDenominator());
 // }
 
-TEST(SimpleOperators, UnaryMinus)
-{
+TEST(SimpleOperators, UnaryMinus) {
     Ratio<int> a(2, 3);
     Ratio<int> b = -a;
 
@@ -336,8 +322,7 @@ TEST(SimpleOperators, UnaryMinus)
 
 // // // Comparison tests
 
-TEST(ComparisonOperators, LowerWhenTrue)
-{
+TEST(ComparisonOperators, LowerWhenTrue) {
     Ratio<int> a(3, 5);
     Ratio<int> b(6, 7);
 
@@ -348,8 +333,7 @@ TEST(ComparisonOperators, LowerWhenTrue)
     EXPECT_TRUE(Ratio<int>(2) < Ratio<int>(5, 2));
 }
 
-TEST(ComparisonOperators, LowerWhenFalse)
-{
+TEST(ComparisonOperators, LowerWhenFalse) {
     Ratio<int> a(3, 5);
     Ratio<int> b(6, 7);
 
@@ -372,8 +356,7 @@ TEST(ComparisonOperators, LowerWhenFalse)
 //     EXPECT_TRUE(b <= a);
 // }
 
-TEST(ComparisonOperators, LowerEqualWhenTrue)
-{
+TEST(ComparisonOperators, LowerEqualWhenTrue) {
     Ratio<int> a(4, 5);
     Ratio<int> b(3, 5);
 
@@ -384,8 +367,7 @@ TEST(ComparisonOperators, LowerEqualWhenTrue)
     EXPECT_TRUE(Ratio<int>(2) <= Ratio<int>(5, 2));
 }
 
-TEST(ComparisonOperators, LowerEqualWhenFalse)
-{
+TEST(ComparisonOperators, LowerEqualWhenFalse) {
     Ratio<int> a(4, 5);
     Ratio<int> b(3, 5);
 
@@ -396,16 +378,14 @@ TEST(ComparisonOperators, LowerEqualWhenFalse)
     EXPECT_FALSE(Ratio<int>(5, 2) <= Ratio<int>(2));
 }
 
-TEST(ComparisonOperators, EqualWhenFalse)
-{
+TEST(ComparisonOperators, EqualWhenFalse) {
     Ratio<int> a(4, 5);
     Ratio<int> b(3, 5);
 
     EXPECT_FALSE(a == b);
 }
 
-TEST(ComparisonOperators, EqualWhenTrue)
-{
+TEST(ComparisonOperators, EqualWhenTrue) {
     Ratio<int> a(4, 5);
     Ratio<int> b(8, 10);
 
@@ -437,8 +417,7 @@ TEST(ComparisonOperators, EqualWhenTrue)
 //     EXPECT_NE(4, a);
 // }
 
-TEST(ComparisonOperators, GreaterWhenFalse)
-{
+TEST(ComparisonOperators, GreaterWhenFalse) {
     Ratio<int> a(3, 5);
     Ratio<int> b(6, 7);
 
@@ -449,8 +428,7 @@ TEST(ComparisonOperators, GreaterWhenFalse)
     EXPECT_FALSE(Ratio<int>(2) > Ratio<int>(5, 2));
 }
 
-TEST(ComparisonOperators, GreaterWhenTrue)
-{
+TEST(ComparisonOperators, GreaterWhenTrue) {
     Ratio<int> a(3, 5);
     Ratio<int> b(6, 7);
 
@@ -477,8 +455,7 @@ TEST(ComparisonOperators, GreaterWhenTrue)
 //     EXPECT_TRUE(b >= a);
 // }
 
-TEST(ComparisonOperators, GreaterEqualWhenFalse)
-{
+TEST(ComparisonOperators, GreaterEqualWhenFalse) {
     Ratio<int> a(4, 5);
     Ratio<int> b(3, 5);
 
@@ -489,8 +466,7 @@ TEST(ComparisonOperators, GreaterEqualWhenFalse)
     EXPECT_FALSE(Ratio<int>(2) >= Ratio<int>(5, 2));
 }
 
-TEST(ComparisonOperators, GreaterEqualWhenTrue)
-{
+TEST(ComparisonOperators, GreaterEqualWhenTrue) {
     Ratio<int> a(4, 5);
     Ratio<int> b(3, 5);
 
@@ -499,6 +475,19 @@ TEST(ComparisonOperators, GreaterEqualWhenTrue)
     EXPECT_TRUE(Ratio<int>(9, 6) >= Ratio<int>(1, 2));
     EXPECT_TRUE(Ratio<int>(5) >= Ratio<int>(2));
     EXPECT_TRUE(Ratio<int>(5, 2) >= Ratio<int>(2));
+}
+
+// Print operator
+TEST(FriendOperators, Print) {
+    std::ostringstream oss117;
+    oss117 << Ratio<int>(5, 2) << std::endl;
+    EXPECT_EQ("5 / 2\n", oss117.str());
+}
+
+TEST(FriendOperators, PrintInteger) {
+    std::ostringstream oss117;
+    oss117 << Ratio<int>(5) << std::endl;
+    EXPECT_EQ("5\n", oss117.str());
 }
 
 // // Exception tests
