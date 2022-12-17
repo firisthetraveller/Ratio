@@ -36,10 +36,13 @@ public:
     Ratio(T a = static_cast<T>(0), int b = 1);
 
     /****************************
-     * GETTERS
+     * CONSTANTS
      ****************************/
-
-     /// \return a rational number that evaluates at 0 (zero).
+     /**
+      * \defgroup Constants
+      * @{
+      */
+      /// \return a rational number that evaluates at 0 (zero).
     static const Ratio<T> ZERO();
 
     /// \return a rational number that evaluates at +infinity.
@@ -47,45 +50,83 @@ public:
 
     /// \return a rational number that evaluates at -infinity.
     static const Ratio<T> MINUS_INF();
+    /** @} */
 
     /****************************
      * GETTERS
      ****************************/
-     /// \brief Returns the value of the numerator.
-     /// \return the numerator
+     /**
+      * \defgroup Getters
+      * @{
+      * \brief Returns the value of the numerator.
+      * \return the numerator
+      */
     constexpr T getNumerator() const;
 
-    /// \brief Returns the value of the denominator.
-    /// \return the denominator
+    /**
+     * \brief Returns the value of the denominator.
+     * \return the denominator
+     */
     constexpr unsigned int getDenominator() const;
+
+    /** @} */
 
     /****************************
      * OPERATORS
      ****************************/
+     /**
+      * \defgroup Operators
+      * @{
+     */
     constexpr Ratio<T> operator-(const Ratio<T>& r) const;
     constexpr Ratio<T> operator-() const;
     constexpr Ratio<T> operator+(const Ratio<T>& r) const;
     constexpr Ratio<T> operator*(double scalar) const;
     constexpr Ratio<T> operator*(const Ratio<T>& r) const;
     constexpr Ratio<T> operator/(const Ratio<T>& r) const;
+    /** @} */
+
+    /****************************
+     * ASSIGNMENT OPERATORS
+     ****************************/
+     /**
+      * \defgroup Assignment operators
+      * \attention This assignment operator discards the previously
+      * stored value in the variable.
+      * @{
+      */
+    constexpr Ratio<T> operator-=(const Ratio<T>& r) const;
+    constexpr Ratio<T> operator+=(const Ratio<T>& r) const;
+    constexpr Ratio<T> operator*=(double scalar) const;
+    constexpr Ratio<T> operator*=(const Ratio<T>& r) const;
+    constexpr Ratio<T> operator/=(const Ratio<T>& r) const;
+    /** @} */
 
     /****************************
      * COMPARISON OPERATORS
      ****************************/
+     /**
+       * \defgroup Comparison operators
+       * @{
+       */
     constexpr bool operator>(const Ratio<T>& r) const;
     constexpr bool operator>=(const Ratio<T>& r) const;
     constexpr bool operator<(const Ratio<T>& r) const;
     constexpr bool operator<=(const Ratio<T>& r) const;
     constexpr bool operator==(const Ratio<T>& r) const;
+    constexpr bool operator!=(const Ratio<T>& r) const;
 
     constexpr bool operator==(const int a) const;
-
+    /** @} */
     /****************************
      * MATH OPERATORS
      ****************************/
-
-     /// \brief Returns the absolute value of the rational number.
-     /// \return the absolute value as a rational number
+     /**
+        * \defgroup Math operators
+        * @{
+        */
+        /// \brief Returns the absolute value of the rational number.
+        /// \return the absolute value as a rational number
     constexpr Ratio<T> abs() const;
 
     /// \brief Returns the rational number at the power given.
@@ -116,6 +157,7 @@ public:
     /// \brief Returns the nearest integer.
     /// \return the nearest integer as a rational number
     constexpr Ratio<T> round() const;
+    /** @} */
 
     /****************************
      * METHODS
