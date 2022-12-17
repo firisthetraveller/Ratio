@@ -105,30 +105,23 @@ TEST(Simplify, Addition) {
     EXPECT_EQ(2, c.getDenominator());
 }
 
-// // TEST(SimpleOperators, AdditionBatch)
-// // {
-// //     std::default_random_engine generator(0);
-// //     std::uniform_int_distribution<int> uniformPositiveIntDistribution(1,
-// DEFAULT_MAX_VALUE);
-// //     std::uniform_int_distribution<int>
-// uniformIntDistribution(-DEFAULT_MAX_VALUE, DEFAULT_MAX_VALUE);
-// //     std::vector<Ratio<int>> a(100), b(100);
-// //     auto gen = [&uniformIntDistribution, &uniformPositiveIntDistribution,
-// &generator]()
-// //     { return Ratio<int>(uniformIntDistribution(generator),
-// uniformPositiveIntDistribution(generator)); };
+// TEST(SimpleOperators, AdditionBatch) {
+//     std::mt19937 generator(0);
+//     std::uniform_int_distribution<int> uniformPositiveIntDistribution(1, DEFAULT_MAX_VALUE);
+//     std::uniform_int_distribution<int> uniformIntDistribution(-DEFAULT_MAX_VALUE, DEFAULT_MAX_VALUE);
+//     std::vector<Ratio<int>> a(100), b(100);
+//     auto gen = [&uniformIntDistribution, &uniformPositiveIntDistribution, &generator]() { return Ratio<int>(uniformIntDistribution(generator), uniformPositiveIntDistribution(generator)); };
 
-// //     std::generate(a.begin(), a.end(), gen);
-// //     std::generate(b.begin(), b.end(), gen);
+//     std::generate(a.begin(), a.end(), gen);
+//     std::generate(b.begin(), b.end(), gen);
 
-// //     for (int i = 0; i < 100; i++)
-// //     {
-// //         Ratio<int> res = a[i] + b[i];
-// //         double c = a[i].eval() + b[i].eval();
-// //         EXPECT_NEAR(c, res.eval(), 10e-7);
-// //         EXPECT_EQ(Ratio<int>::convertFromFloat(c), res);
-// //     }
-// // }
+//     for (int i = 0; i < 100; i++) {
+//         Ratio<int> res = a[i] + b[i];
+//         double c = a[i].eval() + b[i].eval();
+//         EXPECT_NEAR(c, res.eval(), 10e-7);
+//         EXPECT_EQ(Ratio<int>::convertFromFloat(c), res);
+//     }
+// }
 
 TEST(SimpleOperators, Subtraction) {
     Ratio<int> a(5, 6);
@@ -356,27 +349,27 @@ TEST(ComparisonOperators, LowerWhenFalse) {
 //     EXPECT_TRUE(b <= a);
 // }
 
-TEST(ComparisonOperators, LowerEqualWhenTrue) {
-    Ratio<int> a(4, 5);
-    Ratio<int> b(3, 5);
+// TEST(ComparisonOperators, LowerEqualWhenTrue) {
+//     Ratio<int> a(4, 5);
+//     Ratio<int> b(3, 5);
 
-    EXPECT_TRUE(b <= a);
-    EXPECT_TRUE(Ratio<int>(1, 5) <= Ratio<int>(3, 2));
-    EXPECT_TRUE(Ratio<int>(1, 2) <= Ratio<int>(9, 6));
-    EXPECT_TRUE(Ratio<int>(2) <= Ratio<int>(5));
-    EXPECT_TRUE(Ratio<int>(2) <= Ratio<int>(5, 2));
-}
+//     EXPECT_TRUE(b <= a);
+//     EXPECT_TRUE(Ratio<int>(1, 5) <= Ratio<int>(3, 2));
+//     EXPECT_TRUE(Ratio<int>(1, 2) <= Ratio<int>(9, 6));
+//     EXPECT_TRUE(Ratio<int>(2) <= Ratio<int>(5));
+//     EXPECT_TRUE(Ratio<int>(2) <= Ratio<int>(5, 2));
+// }
 
-TEST(ComparisonOperators, LowerEqualWhenFalse) {
-    Ratio<int> a(4, 5);
-    Ratio<int> b(3, 5);
+// TEST(ComparisonOperators, LowerEqualWhenFalse) {
+//     Ratio<int> a(4, 5);
+//     Ratio<int> b(3, 5);
 
-    EXPECT_FALSE(a <= b);
-    EXPECT_FALSE(Ratio<int>(3, 2) <= Ratio<int>(1, 5));
-    EXPECT_FALSE(Ratio<int>(9, 6) <= Ratio<int>(1, 2));
-    EXPECT_FALSE(Ratio<int>(5) <= Ratio<int>(2));
-    EXPECT_FALSE(Ratio<int>(5, 2) <= Ratio<int>(2));
-}
+//     EXPECT_FALSE(a <= b);
+//     EXPECT_FALSE(Ratio<int>(3, 2) <= Ratio<int>(1, 5));
+//     EXPECT_FALSE(Ratio<int>(9, 6) <= Ratio<int>(1, 2));
+//     EXPECT_FALSE(Ratio<int>(5) <= Ratio<int>(2));
+//     EXPECT_FALSE(Ratio<int>(5, 2) <= Ratio<int>(2));
+// }
 
 TEST(ComparisonOperators, EqualWhenFalse) {
     Ratio<int> a(4, 5);
@@ -392,66 +385,66 @@ TEST(ComparisonOperators, EqualWhenTrue) {
     EXPECT_TRUE(a == b);
 }
 
-TEST(ComparisonOperators, DifferentWhenTrue) {
-    Ratio<int> a(4, 5);
-    Ratio<int> b(3, 5);
+// TEST(ComparisonOperators, DifferentWhenTrue) {
+//     Ratio<int> a(4, 5);
+//     Ratio<int> b(3, 5);
 
-    EXPECT_TRUE(a != b);
-}
-
-TEST(ComparisonOperators, DifferentWhenFalse) {
-    Ratio<int> a(4, 5);
-    Ratio<int> b(8, 10);
-
-    EXPECT_FALSE(a != b);
-}
-
-// TEST(ComparisonOperators, EqualWhenTrueB) {
-//   Ratio<int> a(10, 7);
-//   Ratio<int> b(4, 7);
-
-//   EXPECT_EQ(a + b, 2);
+//     EXPECT_TRUE(a != b);
 // }
 
-/*TEST(ComparisonOperators, EqualIntTrue)
-{
-    Ratio<int> a(4);
+// TEST(ComparisonOperators, DifferentWhenFalse) {
+//     Ratio<int> a(4, 5);
+//     Ratio<int> b(8, 10);
 
-    EXPECT_TRUE(a == 4);
-    EXPECT_TRUE(4 == a);
-    EXPECT_EQ(4, a);
-    EXPECT_EQ(a, 4);
-}*/
+//     EXPECT_FALSE(a != b);
+// }
 
-// TEST(ComparisonOperators, EqualIntFalse)
+// // TEST(ComparisonOperators, EqualWhenTrueB) {
+// //   Ratio<int> a(10, 7);
+// //   Ratio<int> b(4, 7);
+
+// //   EXPECT_EQ(a + b, 2);
+// // }
+
+// /*TEST(ComparisonOperators, EqualIntTrue)
 // {
-//     Ratio<int> a(5);
+//     Ratio<int> a(4);
 
-//     EXPECT_NE(a, 4);
-//     EXPECT_NE(4, a);
+//     EXPECT_TRUE(a == 4);
+//     EXPECT_TRUE(4 == a);
+//     EXPECT_EQ(4, a);
+//     EXPECT_EQ(a, 4);
+// }*/
+
+// // TEST(ComparisonOperators, EqualIntFalse)
+// // {
+// //     Ratio<int> a(5);
+
+// //     EXPECT_NE(a, 4);
+// //     EXPECT_NE(4, a);
+// // }
+
+// TEST(ComparisonOperators, GreaterWhenFalse) {
+//     Ratio<int> a(3, 5);
+//     Ratio<int> b(6, 7);
+
+//     EXPECT_FALSE(a > b);
+//     EXPECT_FALSE(Ratio<int>(1, 5) > Ratio<int>(3, 2));
+//     EXPECT_FALSE(Ratio<int>(1, 2) > Ratio<int>(9, 6));
+//     EXPECT_FALSE(Ratio<int>(2) > Ratio<int>(5));
+//     EXPECT_FALSE(Ratio<int>(2) > Ratio<int>(5, 2));
 // }
 
-TEST(ComparisonOperators, GreaterWhenFalse) {
-    Ratio<int> a(3, 5);
-    Ratio<int> b(6, 7);
+// TEST(ComparisonOperators, GreaterWhenTrue) {
+//     Ratio<int> a(3, 5);
+//     Ratio<int> b(6, 7);
 
-    EXPECT_FALSE(a > b);
-    EXPECT_FALSE(Ratio<int>(1, 5) > Ratio<int>(3, 2));
-    EXPECT_FALSE(Ratio<int>(1, 2) > Ratio<int>(9, 6));
-    EXPECT_FALSE(Ratio<int>(2) > Ratio<int>(5));
-    EXPECT_FALSE(Ratio<int>(2) > Ratio<int>(5, 2));
-}
-
-TEST(ComparisonOperators, GreaterWhenTrue) {
-    Ratio<int> a(3, 5);
-    Ratio<int> b(6, 7);
-
-    EXPECT_TRUE(b > a);
-    EXPECT_TRUE(Ratio<int>(3, 2) > Ratio<int>(1, 5));
-    EXPECT_TRUE(Ratio<int>(9, 6) > Ratio<int>(1, 2));
-    EXPECT_TRUE(Ratio<int>(5) > Ratio<int>(2));
-    EXPECT_TRUE(Ratio<int>(5, 2) > Ratio<int>(2));
-}
+//     EXPECT_TRUE(b > a);
+//     EXPECT_TRUE(Ratio<int>(3, 2) > Ratio<int>(1, 5));
+//     EXPECT_TRUE(Ratio<int>(9, 6) > Ratio<int>(1, 2));
+//     EXPECT_TRUE(Ratio<int>(5) > Ratio<int>(2));
+//     EXPECT_TRUE(Ratio<int>(5, 2) > Ratio<int>(2));
+// }
 
 // TEST(ComparisonOperators, GreaterEqualWhenEqualA)
 // {
@@ -469,40 +462,40 @@ TEST(ComparisonOperators, GreaterWhenTrue) {
 //     EXPECT_TRUE(b >= a);
 // }
 
-TEST(ComparisonOperators, GreaterEqualWhenFalse) {
-    Ratio<int> a(4, 5);
-    Ratio<int> b(3, 5);
+// TEST(ComparisonOperators, GreaterEqualWhenFalse) {
+//     Ratio<int> a(4, 5);
+//     Ratio<int> b(3, 5);
 
-    EXPECT_FALSE(b >= a);
-    EXPECT_FALSE(Ratio<int>(1, 5) >= Ratio<int>(3, 2));
-    EXPECT_FALSE(Ratio<int>(1, 2) >= Ratio<int>(9, 6));
-    EXPECT_FALSE(Ratio<int>(2) >= Ratio<int>(5));
-    EXPECT_FALSE(Ratio<int>(2) >= Ratio<int>(5, 2));
-}
+//     EXPECT_FALSE(b >= a);
+//     EXPECT_FALSE(Ratio<int>(1, 5) >= Ratio<int>(3, 2));
+//     EXPECT_FALSE(Ratio<int>(1, 2) >= Ratio<int>(9, 6));
+//     EXPECT_FALSE(Ratio<int>(2) >= Ratio<int>(5));
+//     EXPECT_FALSE(Ratio<int>(2) >= Ratio<int>(5, 2));
+// }
 
-TEST(ComparisonOperators, GreaterEqualWhenTrue) {
-    Ratio<int> a(4, 5);
-    Ratio<int> b(3, 5);
+// TEST(ComparisonOperators, GreaterEqualWhenTrue) {
+//     Ratio<int> a(4, 5);
+//     Ratio<int> b(3, 5);
 
-    EXPECT_TRUE(a >= b);
-    EXPECT_TRUE(Ratio<int>(3, 2) >= Ratio<int>(1, 5));
-    EXPECT_TRUE(Ratio<int>(9, 6) >= Ratio<int>(1, 2));
-    EXPECT_TRUE(Ratio<int>(5) >= Ratio<int>(2));
-    EXPECT_TRUE(Ratio<int>(5, 2) >= Ratio<int>(2));
-}
+//     EXPECT_TRUE(a >= b);
+//     EXPECT_TRUE(Ratio<int>(3, 2) >= Ratio<int>(1, 5));
+//     EXPECT_TRUE(Ratio<int>(9, 6) >= Ratio<int>(1, 2));
+//     EXPECT_TRUE(Ratio<int>(5) >= Ratio<int>(2));
+//     EXPECT_TRUE(Ratio<int>(5, 2) >= Ratio<int>(2));
+// }
 
 // Print operator
-TEST(FriendOperators, Print) {
-    std::ostringstream oss117;
-    oss117 << Ratio<int>(5, 2) << std::endl;
-    EXPECT_EQ("5 / 2\n", oss117.str());
-}
+// TEST(FriendOperators, Print) {
+//     std::ostringstream oss117;
+//     oss117 << Ratio<int>(5, 2) << std::endl;
+//     EXPECT_EQ("5 / 2\n", oss117.str());
+// }
 
-TEST(FriendOperators, PrintInteger) {
-    std::ostringstream oss117;
-    oss117 << Ratio<int>(5) << std::endl;
-    EXPECT_EQ("5\n", oss117.str());
-}
+// TEST(FriendOperators, PrintInteger) {
+//     std::ostringstream oss117;
+//     oss117 << Ratio<int>(5) << std::endl;
+//     EXPECT_EQ("5\n", oss117.str());
+// }
 
 // // Exception tests
 
