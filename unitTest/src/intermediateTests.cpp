@@ -3,14 +3,7 @@
 #include "../../libRatio/include/Ratio.hpp"
 
 // // Types
-// // TODO : Ratio<unsigned int> , Ratio<float>
-
-TEST(TemplateType, Floats)
-{
-    EXPECT_THROW(Ratio<double>(), std::invalid_argument);
-    EXPECT_THROW(Ratio<float>(), std::invalid_argument);
-    EXPECT_THROW(Ratio<long double>(), std::invalid_argument);
-}
+// // TODO : Ratio<unsigned int>
 
 // // Methods
 
