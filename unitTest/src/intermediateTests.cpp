@@ -36,12 +36,28 @@ TEST(Simplify, ToConstNegativeInfinity) {
     EXPECT_EQ(b, Ratio<int>(2, 1));
 }*/
 
-TEST(IntermediateOperators, ScalarMultiplyB) {
+TEST(IntermediateOperators, ScalarMultiplyB1) {
   Ratio<int> a(2, 5);
   Ratio<int> b = a * 5;
 
   EXPECT_EQ(b.getNumerator(), 2);
   EXPECT_EQ(b.getDenominator(), 1);
+}
+
+TEST(IntermediateOperators, ScalarMultiplyB2) {
+  Ratio<int> a(2, 5);
+  Ratio<int> b = a * 0.5;
+
+  EXPECT_EQ(b.getNumerator(), 1);
+  EXPECT_EQ(b.getDenominator(), 5);
+}
+
+TEST(IntermediateOperators, ScalarMultiplyB3) {
+  Ratio<int> a(2, 5);
+  Ratio<int> b = a * 12.25;
+
+  EXPECT_EQ(b.getNumerator(), 49);
+  EXPECT_EQ(b.getDenominator(), 10);
 }
 
 /*TEST(IntermediateOperators, ScalarMultiplyDouble)
