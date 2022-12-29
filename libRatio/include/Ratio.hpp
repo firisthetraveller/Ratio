@@ -211,6 +211,13 @@ template <typename T> double Ratio<T>::eval() const {
 
 template <typename T>
 Ratio<T>::Ratio(T a, int b): m_numerator(a), m_denominator(b) {
+  if (a == 0 && b == 0) {
+    throw std::domain_error("zero_by_zero: undefined rational");
+  }
+  if (b < 0) {
+    m_numerator = -a;
+    m_denominator = -b;
+  }
   simplify();
 }
 
@@ -293,8 +300,61 @@ constexpr bool Ratio<T>::operator!=(const Ratio<T>& r) const {
   return m_numerator != r.m_numerator || m_denominator != r.m_denominator;
 }
 
-template <typename T> constexpr bool Ratio<T>::operator==(const int a) const {
+template <typename T>
+constexpr bool Ratio<T>::operator==(const int a) const {
   return m_numerator == a && m_denominator == 1;
+}
+
+template <typename T>
+constexpr Ratio<T> Ratio<T>::inv() const {
+  return Ratio<T>(((m_numerator < 0) ? -1 : 1) * static_cast<T>(m_denominator), std::abs(m_numerator));
+}
+
+template <typename T>
+Ratio<T> Ratio<T>::pow(double value) const {
+  double num = std::pow(getNumerator(), value);
+  double den = std::pow(getDenominator(), value);
+  return Ratio<T>::convertFromFloat(num / den);
+}
+
+template <typename T>
+constexpr Ratio<T> Ratio<T>::abs() const {
+  return Ratio<T>(std::abs(m_numerator), m_denominator);
+}
+
+template <typename T>
+constexpr Ratio<T> Ratio<T>::truncate() const {
+  return Ratio<T>((m_numerator - (m_numerator % m_denominator)) / m_denominator);
+}
+
+template <typename T>
+constexpr Ratio<T> Ratio<T>::round() const {
+  int rest = m_numerator % m_denominator;
+  return Ratio<T>((m_numerator - rest) / m_denominator + ((rest >= double(m_denominator) / 2) ? 1 : 0));
+}
+
+template <typename T>
+Ratio<T> Ratio<T>::cos() const {
+  return Ratio<T>::convertFromFloat(std::cos(eval()));
+}
+
+template <typename T>
+Ratio<T> Ratio<T>::exp() const {
+  return Ratio<T>::convertFromFloat(std::exp(eval()));
+}
+
+template <typename T>
+Ratio<T> Ratio<T>::sqrt() const {
+  return Ratio<T>::convertFromFloat(std::sqrt(eval()));
+}
+
+template <typename T>
+std::ostream& operator<< (std::ostream& out, const Ratio<T>& r) {
+  if (r.getDenominator() == 1)
+    out << r.getNumerator();
+  else
+    out << r.getNumerator() << " / " << r.getDenominator();
+  return out;
 }
 
 #endif
