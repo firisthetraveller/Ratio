@@ -26,37 +26,33 @@ TEST(DefaultValues, NegativeInfinity) {
 
 // // Type tests
 
-// TEST(TemplateType, Integer)
-// {
-//     Ratio<int> a(1, 2);
+TEST(TemplateType, Integer) {
+  Ratio<int> a(1, 2);
 
-//     EXPECT_TRUE(typeid(int) == typeid(a.getNumerator()));
-// }
+  EXPECT_TRUE(typeid(int) == typeid(a.getNumerator()));
+}
 
-// TEST(TemplateType, LongInteger)
-// {
-//     Ratio<long int> a = Ratio<long int>(3, 5);
+TEST(TemplateType, LongInteger) {
+  Ratio<long int> a = Ratio<long int>(3, 5);
 
-//     EXPECT_TRUE(typeid(long int) == typeid(a.getNumerator()));
-// }
+  EXPECT_TRUE(typeid(long int) == typeid(a.getNumerator()));
+}
 
-// TEST(TemplateType, NegativeDenominator)
-// {
-//     Ratio<int> a(1, -2);
+TEST(TemplateType, NegativeDenominator) {
+  Ratio<int> a(1, -2);
 
-//     EXPECT_FALSE(a.getDenominator() < 0);
-//     EXPECT_EQ(-1, a.getNumerator());
-//     EXPECT_EQ(2, a.getDenominator());
-// }
+  EXPECT_FALSE(a.getDenominator() < 0);
+  EXPECT_EQ(-1, a.getNumerator());
+  EXPECT_EQ(2, a.getDenominator());
+}
 
-// TEST(TemplateType, SignCorrection)
-// {
-//     Ratio<int> a(-1, -2);
+TEST(TemplateType, SignCorrection) {
+  Ratio<int> a(-1, -2);
 
-//     EXPECT_FALSE(a.getDenominator() < 0);
-//     EXPECT_EQ(1, a.getNumerator());
-//     EXPECT_EQ(2, a.getDenominator());
-// }
+  EXPECT_FALSE(a.getDenominator() < 0);
+  EXPECT_EQ(1, a.getNumerator());
+  EXPECT_EQ(2, a.getDenominator());
+}
 
 // // Constructor tests
 
@@ -254,14 +250,13 @@ TEST(Simplify, Division) {
 // //     }
 // // }
 
-// TEST(StandardOperators, Absolute)
-// {
-//     Ratio<int> a(-5, 1);
-//     a = a.abs();
+TEST(StandardOperators, Absolute) {
+  Ratio<int> a(-5, 1);
+  a = a.abs();
 
-//     EXPECT_EQ(5, a.getNumerator());
-//     EXPECT_EQ(1, a.getDenominator());
-// }
+  EXPECT_EQ(5, a.getNumerator());
+  EXPECT_EQ(1, a.getDenominator());
+}
 
 TEST(SimpleOperators, UnaryMinus) {
   Ratio<int> a(2, 3);
@@ -271,50 +266,45 @@ TEST(SimpleOperators, UnaryMinus) {
   EXPECT_EQ(3, b.getDenominator());
 }
 
-// TEST(StandardOperators, Truncate)
-// {
-//     Ratio<int> a(2, 3);
-//     Ratio<int> b = a.truncate();
+TEST(StandardOperators, Truncate) {
+  Ratio<int> a(2, 3);
+  Ratio<int> b = a.truncate();
 
-//     EXPECT_EQ(0, b.getNumerator());
-//     EXPECT_EQ(1, b.getDenominator());
-// }
+  EXPECT_EQ(0, b.getNumerator());
+  EXPECT_EQ(1, b.getDenominator());
+}
 
-// TEST(StandardOperators, RoundUpper)
-// {
-//     Ratio<int> a(2, 3);
-//     Ratio<int> b = a.round();
+TEST(StandardOperators, RoundUpper) {
+  Ratio<int> a(2, 3);
+  Ratio<int> b = a.round();
 
-//     EXPECT_EQ(1, b.getNumerator());
-//     EXPECT_EQ(1, b.getDenominator());
-// }
+  EXPECT_EQ(1, b.getNumerator());
+  EXPECT_EQ(1, b.getDenominator());
+}
 
-// TEST(StandardOperators, RoundLower)
-// {
-//     Ratio<int> a(1, 3);
-//     Ratio<int> b = a.round();
+TEST(StandardOperators, RoundLower) {
+  Ratio<int> a(1, 3);
+  Ratio<int> b = a.round();
 
-//     EXPECT_EQ(0, a.getNumerator());
-//     EXPECT_EQ(1, b.getDenominator());
-// }
+  EXPECT_EQ(0, b.getNumerator());
+  EXPECT_EQ(1, b.getDenominator());
+}
 
-// TEST(StandardOperators, Inverse)
-// {
-//     Ratio<int> a(1, 3);
-//     Ratio<int> b = a.inv();
+TEST(StandardOperators, Inverse) {
+  Ratio<int> a(1, 3);
+  Ratio<int> b = a.inv();
 
-//     EXPECT_EQ(b.getDenominator(), a.getNumerator());
-//     EXPECT_EQ(a.getDenominator(), b.getNumerator());
-// }
+  EXPECT_EQ(b.getDenominator(), a.getNumerator());
+  EXPECT_EQ(a.getDenominator(), b.getNumerator());
+}
 
-// TEST(StandardOperators, NegativeInverse)
-// {
-//     Ratio<int> a(-1, 3);
-//     Ratio<int> b = a.inv();
+TEST(StandardOperators, NegativeInverse) {
+  Ratio<int> a(-1, 3);
+  Ratio<int> b = a.inv();
 
-//     EXPECT_EQ(-b.getDenominator(), a.getNumerator());
-//     EXPECT_EQ(a.getDenominator(), -b.getNumerator());
-// }
+  EXPECT_EQ(-b.getDenominator(), a.getNumerator());
+  EXPECT_EQ(a.getDenominator(), -b.getNumerator());
+}
 
 // // // Comparison tests
 
@@ -482,18 +472,25 @@ TEST(ComparisonOperators, GreaterEqualWhenTrue) {
 }
 
 // Print operator
-// TEST(FriendOperators, Print) {
-//     std::ostringstream oss117;
-//     oss117 << Ratio<int>(5, 2) << std::endl;
-//     EXPECT_EQ("5 / 2\n", oss117.str());
-// }
+TEST(FriendOperators, Print) {
+  std::ostringstream oss117;
+  oss117 << Ratio<int>(5, 2) << std::endl;
+  EXPECT_EQ("5 / 2\n", oss117.str());
+}
 
-// TEST(FriendOperators, PrintInteger) {
-//     std::ostringstream oss117;
-//     oss117 << Ratio<int>(5) << std::endl;
-//     EXPECT_EQ("5\n", oss117.str());
-// }
+TEST(FriendOperators, PrintInteger) {
+  std::ostringstream oss117;
+  oss117 << Ratio<int>(5) << std::endl;
+  EXPECT_EQ("5\n", oss117.str());
+}
 
 // // Exception tests
+TEST(Exception, ZeroByZero) {
+  EXPECT_THROW(Ratio<int>(0, 0), std::domain_error);
+}
+
+TEST(Exception, IntoZeroByZero) {
+  EXPECT_THROW(Ratio<int>::ZERO() * Ratio<int>::PLUS_INF(), std::domain_error);
+}
 
 // // Methods
