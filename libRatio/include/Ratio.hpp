@@ -254,7 +254,7 @@ constexpr Ratio<T> Ratio<T>::operator+(const Ratio<T>& r) const {
 
 template <typename T>
 constexpr Ratio<T> Ratio<T>::operator*(double scalar) const {
-  return Ratio<T>(m_numerator * scalar, m_denominator);
+  return (*this) * convertFromFloat(scalar);
 }
 
 template <typename T>
