@@ -125,25 +125,69 @@
 
 // // Convert
 
-// TEST(Conversion, SimpleConversionInteger)
-// {
+// TEST(Conversion, SimpleConversionInteger) {
 //     Ratio<int> a = Ratio<int>::convertFromFloat(2.0f);
 
 //     EXPECT_EQ(2, a.getNumerator());
 //     EXPECT_EQ(1, a.getDenominator());
 // }
 
-// TEST(Conversion, SimpleConversionDecimal)
-// {
+// TEST(Conversion, SimpleConversionBigInteger) {
+//     Ratio<int> a = Ratio<int>::convertFromFloat(150.0f);
+
+//     EXPECT_EQ(150, a.getNumerator());
+//     EXPECT_EQ(1, a.getDenominator());
+// }
+
+// TEST(Conversion, SimpleConversionBigInteger2) {
+//     Ratio<int> a = Ratio<int>::convertFromFloat(-150.0f);
+
+//     EXPECT_EQ(-150, a.getNumerator());
+//     EXPECT_EQ(1, a.getDenominator());
+// }
+
+// TEST(Conversion, SimpleConversionDecimal) {
 //     Ratio<int> a = Ratio<int>::convertFromFloat(0.5f);
 
 //     EXPECT_EQ(1, a.getNumerator());
 //     EXPECT_EQ(2, a.getDenominator());
 // }
 
-// TEST(Conversion, ConversionDecimal)
-// { // Not sure if this one works
-//     Ratio<int> a = Ratio<int>::convertFromFloat(0.33f);
+// TEST(Conversion, SimpleConversionDecimal2) {
+//     Ratio<int> a = Ratio<int>::convertFromFloat(0.2f);
 
-//     EXPECT_NEAR(33.0 / 100, a.eval(), 10e-7);
+//     EXPECT_EQ(1, a.getNumerator());
+//     EXPECT_EQ(5, a.getDenominator());
+//     EXPECT_NEAR(1.0 / 5, a.eval(), 10e-10);
+// }
+
+
+// TEST(Conversion, SimpleConversionDecimal3) {
+//     Ratio<int> a = Ratio<int>::convertFromFloat(-150.2f);
+
+//     EXPECT_NEAR(-150.2f, a.eval(), 10e-10);
+// }
+
+// TEST(Conversion, SimpleConversionDecimal4_1) {
+//     Ratio<int> a = Ratio<int>::convertFromFloat(-150.1f, 10);
+
+//     EXPECT_NEAR(-150.1f, a.eval(), 10e-10);
+// }
+
+// TEST(Conversion, SimpleConversionDecimal4_2) {
+//     Ratio<int> a = Ratio<int>::convertFromFloat(-150.1f, 15);
+
+//     EXPECT_NEAR(-150.1f, a.eval(), 10e-10);
+// }
+
+// TEST(Conversion, ConversionDecimal) {
+//     Ratio<int> a = Ratio<int>::convertFromFloat(0.33, 10);
+
+//     EXPECT_NEAR(33.0 / 100, a.eval(), 10e-10);
+// }
+
+// TEST(Conversion, ConversionDecimal2) {
+//     Ratio<int> a = Ratio<int>::convertFromFloat(0.3333f, 10);
+
+//     EXPECT_NEAR(3333.0 / 10000, a.eval(), 10e-10);
 // }
