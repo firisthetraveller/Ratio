@@ -37,11 +37,11 @@ public:
   /****************************
    * CONSTANTS
    ****************************/
-  /**
-   * \defgroup Constants
-   * @{
-   */
-  /// \return a rational number that evaluates at 0 (zero).
+   /**
+    * \defgroup Constants
+    * @{
+    */
+    /// \return a rational number that evaluates at 0 (zero).
   static const Ratio<T> ZERO();
 
   /// \return a rational number that evaluates at +infinity.
@@ -54,12 +54,12 @@ public:
   /****************************
    * GETTERS
    ****************************/
-  /**
-   * \defgroup Getters
-   * @{
-   * \brief Returns the value of the numerator.
-   * \return the numerator
-   */
+   /**
+    * \defgroup Getters
+    * @{
+    * \brief Returns the value of the numerator.
+    * \return the numerator
+    */
   constexpr T getNumerator() const;
 
   /**
@@ -73,59 +73,59 @@ public:
   /****************************
    * OPERATORS
    ****************************/
-  /**
-   * \defgroup Operators
-   * @{
-   */
-  constexpr Ratio<T> operator-(const Ratio<T> &r) const;
+   /**
+    * \defgroup Operators
+    * @{
+    */
+  constexpr Ratio<T> operator-(const Ratio<T>& r) const;
   constexpr Ratio<T> operator-() const;
-  constexpr Ratio<T> operator+(const Ratio<T> &r) const;
+  constexpr Ratio<T> operator+(const Ratio<T>& r) const;
   constexpr Ratio<T> operator*(double scalar) const;
-  constexpr Ratio<T> operator*(const Ratio<T> &r) const;
-  constexpr Ratio<T> operator/(const Ratio<T> &r) const;
+  constexpr Ratio<T> operator*(const Ratio<T>& r) const;
+  constexpr Ratio<T> operator/(const Ratio<T>& r) const;
   /** @} */
 
   /****************************
    * ASSIGNMENT OPERATORS
    ****************************/
-  /**
-   * \defgroup Assignment operators
-   * \attention This assignment operator discards the previously
-   * stored value in the variable.
-   * @{
-   */
-  constexpr Ratio<T> operator-=(const Ratio<T> &r) const;
-  constexpr Ratio<T> operator+=(const Ratio<T> &r) const;
+   /**
+    * \defgroup Assignment operators
+    * \attention This assignment operator discards the previously
+    * stored value in the variable.
+    * @{
+    */
+  constexpr Ratio<T> operator-=(const Ratio<T>& r) const;
+  constexpr Ratio<T> operator+=(const Ratio<T>& r) const;
   constexpr Ratio<T> operator*=(double scalar) const;
-  constexpr Ratio<T> operator*=(const Ratio<T> &r) const;
-  constexpr Ratio<T> operator/=(const Ratio<T> &r) const;
+  constexpr Ratio<T> operator*=(const Ratio<T>& r) const;
+  constexpr Ratio<T> operator/=(const Ratio<T>& r) const;
   /** @} */
 
   /****************************
    * COMPARISON OPERATORS
    ****************************/
-  /**
-   * \defgroup Comparison operators
-   * @{
-   */
-  constexpr bool operator>(const Ratio<T> &r) const;
-  constexpr bool operator>=(const Ratio<T> &r) const;
-  constexpr bool operator<(const Ratio<T> &r) const;
-  constexpr bool operator<=(const Ratio<T> &r) const;
-  constexpr bool operator==(const Ratio<T> &r) const;
-  constexpr bool operator!=(const Ratio<T> &r) const;
+   /**
+    * \defgroup Comparison operators
+    * @{
+    */
+  constexpr bool operator>(const Ratio<T>& r) const;
+  constexpr bool operator>=(const Ratio<T>& r) const;
+  constexpr bool operator<(const Ratio<T>& r) const;
+  constexpr bool operator<=(const Ratio<T>& r) const;
+  constexpr bool operator==(const Ratio<T>& r) const;
+  constexpr bool operator!=(const Ratio<T>& r) const;
 
   constexpr bool operator==(const int a) const;
   /** @} */
   /****************************
    * MATH OPERATORS
    ****************************/
-  /**
-   * \defgroup Math operators
-   * @{
-   */
-  /// \brief Returns the absolute value of the rational number.
-  /// \return the absolute value as a rational number
+   /**
+    * \defgroup Math operators
+    * @{
+    */
+    /// \brief Returns the absolute value of the rational number.
+    /// \return the absolute value as a rational number
   constexpr Ratio<T> abs() const;
 
   /// \brief Returns the rational number at the power given.
@@ -161,9 +161,9 @@ public:
   /****************************
    * METHODS
    ****************************/
-  /// \brief Returns the value of the rational number as a floating point
-  /// number.
-  /// \return the value as a floating point number
+   /// \brief Returns the value of the rational number as a floating point
+   /// number.
+   /// \return the value as a floating point number
   double eval() const;
 };
 
@@ -180,7 +180,7 @@ Ratio<T> Ratio<T>::convertFromFloatAux(float value, int nbIter) {
 template <typename T>
 Ratio<T> Ratio<T>::convertFromFloat(float value, int nbIter) {
   return ((value < 0) ? Ratio<T>(-1) : Ratio<T>(1)) *
-         convertFromFloatAux(std::abs(value), nbIter);
+    convertFromFloatAux(std::abs(value), nbIter);
 }
 
 template <typename T> const Ratio<T> Ratio<T>::ZERO() {
@@ -196,7 +196,7 @@ template <typename T> const Ratio<T> Ratio<T>::MINUS_INF() {
 }
 
 template <typename T> void Ratio<T>::simplify() {
-  auto gcd = std::gcd(m_numerator, m_denominator);
+  int gcd = int(std::gcd(m_numerator, m_denominator));
   m_numerator /= gcd;
   m_denominator /= gcd;
 }
@@ -210,7 +210,7 @@ template <typename T> double Ratio<T>::eval() const {
  ****************************/
 
 template <typename T>
-Ratio<T>::Ratio(T a, int b) : m_numerator(a), m_denominator(b) {
+Ratio<T>::Ratio(T a, int b): m_numerator(a), m_denominator(b) {
   simplify();
 }
 
@@ -230,9 +230,9 @@ template <typename T> constexpr unsigned int Ratio<T>::getDenominator() const {
  * OPERATORS
  ****************************/
 template <typename T>
-constexpr Ratio<T> Ratio<T>::operator-(const Ratio<T> &r) const {
+constexpr Ratio<T> Ratio<T>::operator-(const Ratio<T>& r) const {
   return Ratio<T>(m_numerator * r.m_denominator - m_denominator * r.m_numerator,
-                  m_denominator * r.m_denominator);
+    m_denominator * r.m_denominator);
 }
 
 template <typename T> constexpr Ratio<T> Ratio<T>::operator-() const {
@@ -240,9 +240,9 @@ template <typename T> constexpr Ratio<T> Ratio<T>::operator-() const {
 }
 
 template <typename T>
-constexpr Ratio<T> Ratio<T>::operator+(const Ratio<T> &r) const {
+constexpr Ratio<T> Ratio<T>::operator+(const Ratio<T>& r) const {
   return Ratio<T>(m_numerator * r.m_denominator + m_denominator * r.m_numerator,
-                  m_denominator * r.m_denominator);
+    m_denominator * r.m_denominator);
 }
 
 template <typename T>
@@ -251,12 +251,12 @@ constexpr Ratio<T> Ratio<T>::operator*(double scalar) const {
 }
 
 template <typename T>
-constexpr Ratio<T> Ratio<T>::operator*(const Ratio<T> &r) const {
+constexpr Ratio<T> Ratio<T>::operator*(const Ratio<T>& r) const {
   return Ratio<T>(m_numerator * r.m_numerator, m_denominator * r.m_denominator);
 }
 
 template <typename T>
-constexpr Ratio<T> Ratio<T>::operator/(const Ratio<T> &r) const {
+constexpr Ratio<T> Ratio<T>::operator/(const Ratio<T>& r) const {
   return Ratio<T>(m_numerator * r.m_denominator, m_denominator * r.m_numerator);
 }
 
@@ -264,32 +264,32 @@ constexpr Ratio<T> Ratio<T>::operator/(const Ratio<T> &r) const {
  *  COMPARISON OPERATORS
  ****************************/
 template <typename T>
-constexpr bool Ratio<T>::operator>(const Ratio<T> &r) const {
+constexpr bool Ratio<T>::operator>(const Ratio<T>& r) const {
   return m_numerator * r.m_denominator > r.m_numerator * m_denominator;
 }
 
 template <typename T>
-constexpr bool Ratio<T>::operator>=(const Ratio<T> &r) const {
+constexpr bool Ratio<T>::operator>=(const Ratio<T>& r) const {
   return m_numerator * r.m_denominator >= r.m_numerator * m_denominator;
 }
 
 template <typename T>
-constexpr bool Ratio<T>::operator<(const Ratio<T> &r) const {
-  return m_numerator * r.m_denominator < r.m_numerator * m_denominator;
+constexpr bool Ratio<T>::operator<(const Ratio<T>& r) const {
+  return m_numerator * r.m_denominator < r.m_numerator* m_denominator;
 }
 
 template <typename T>
-constexpr bool Ratio<T>::operator<=(const Ratio<T> &r) const {
+constexpr bool Ratio<T>::operator<=(const Ratio<T>& r) const {
   return m_numerator * r.m_denominator <= r.m_numerator * m_denominator;
 }
 
 template <typename T>
-constexpr bool Ratio<T>::operator==(const Ratio<T> &r) const {
+constexpr bool Ratio<T>::operator==(const Ratio<T>& r) const {
   return m_numerator == r.m_numerator && m_denominator == r.m_denominator;
 }
 
 template <typename T>
-constexpr bool Ratio<T>::operator!=(const Ratio<T> &r) const {
+constexpr bool Ratio<T>::operator!=(const Ratio<T>& r) const {
   return m_numerator != r.m_numerator || m_denominator != r.m_denominator;
 }
 
