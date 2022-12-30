@@ -10,12 +10,12 @@ file(GLOB_RECURSE source_files src/*.cpp)
 file(GLOB_RECURSE header_files include/*.hpp)
 
 # call the CMakeLists.txt to make the documentation (Doxygen)
-#find_package(Doxygen OPTIONAL_COMPONENTS QUIET)
-#if(DOXYGEN_FOUND)
-#	add_subdirectory(doc)
-#else()
-#	message(WARNING "Doxygen not found, skip dococumentation")
-#endif()
+find_package(Doxygen OPTIONAL_COMPONENTS QUIET)
+if(DOXYGEN_FOUND)
+	add_subdirectory(doc)
+else()
+	message(WARNING "Doxygen not found, skip dococumentation")
+endif()
 
 # Instructions to compile a library (no main() inside)
 # default STATIC ??
