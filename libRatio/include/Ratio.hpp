@@ -334,7 +334,9 @@ Ratio<T> Ratio<T>::sqrt() const {
 
 template <typename T>
 std::ostream& operator<< (std::ostream& out, const Ratio<T>& r) {
-  if (r.getDenominator() == 1)
+  if (r.getDenominator() == 0)
+    out << ((r.getNumerator() == 1) ? "+infinity" : "-infinity");
+  else if (r.getDenominator() == 1)
     out << r.getNumerator();
   else
     out << r.getNumerator() << " / " << r.getDenominator();

@@ -484,6 +484,18 @@ TEST(FriendOperators, PrintInteger) {
   EXPECT_EQ("5\n", oss117.str());
 }
 
+TEST(FriendOperators, PrintPlusInfinity) {
+  std::ostringstream oss117;
+  oss117 << Ratio<int>::PLUS_INF() << std::endl;
+  EXPECT_EQ("+infinity\n", oss117.str());
+}
+
+TEST(FriendOperators, PrintMinusInfinity) {
+  std::ostringstream oss117;
+  oss117 << Ratio<int>::MINUS_INF() << std::endl;
+  EXPECT_EQ("-infinity\n", oss117.str());
+}
+
 // // Exception tests
 TEST(Exception, ZeroByZero) {
   EXPECT_THROW(Ratio<int>(0, 0), std::domain_error);
