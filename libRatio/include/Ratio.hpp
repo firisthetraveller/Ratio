@@ -248,7 +248,7 @@ constexpr Ratio<T> Ratio<T>::operator*(const Ratio<T>& r) const {
 
 template <typename T>
 constexpr Ratio<T> Ratio<T>::operator/(const Ratio<T>& r) const {
-  return Ratio<T>(m_numerator * r.m_denominator, m_denominator * r.m_numerator);
+  return *this * r.inv();
 }
 
 /****************************
@@ -266,12 +266,12 @@ constexpr bool Ratio<T>::operator>=(const Ratio<T>& r) const {
 
 template <typename T>
 constexpr bool Ratio<T>::operator<(const Ratio<T>& r) const {
-  return m_numerator * r.m_denominator < r.m_numerator* m_denominator;
+  return !(*this >= r);
 }
 
 template <typename T>
 constexpr bool Ratio<T>::operator<=(const Ratio<T>& r) const {
-  return m_numerator * r.m_denominator <= r.m_numerator * m_denominator;
+  return !(*this > r);
 }
 
 template <typename T>
@@ -281,7 +281,7 @@ constexpr bool Ratio<T>::operator==(const Ratio<T>& r) const {
 
 template <typename T>
 constexpr bool Ratio<T>::operator!=(const Ratio<T>& r) const {
-  return m_numerator != r.m_numerator || m_denominator != r.m_denominator;
+  return !(*this == r);
 }
 
 template <typename T>
