@@ -1,4 +1,8 @@
 # Ratio
+## Authors
+- Aude Pora
+- Guy Luong
+
 ## General description
 `Ratio` is a C++ library that adds rational numbers.
 
