@@ -4,9 +4,11 @@
 - Guy Luong
 
 ## General description
-`Ratio` is a C++ library that adds rational numbers.
+`Ratio` is a C++ library that adds rational numbers to the language.
 
-Rational numbers are numbers composed of two integer parts, called numerator and denominator.
+Rational numbers are numbers composed of two integer parts, called numerator and denominator, and are represented as following:
+
+$$r = \frac{numerator}{denominator}, \medspace with \medspace denominator \in \N+$$
 
 ## Testing
 ### Mandatory steps
@@ -58,15 +60,17 @@ std::cout << b << std::endl; // prints "5 / 2"
 ```
 
 ### Limits
-Both `+infinity` and `-infinity` are represented.
+Both $+\infty$ and $-\infty$ are represented, and they occur when the denominator is set to 0.
 
 Syntax :
 ```cpp
 Ratio<int> a = Ratio<int>::PLUS_INF();
 Ratio<int> b = Ratio<int>::MINUS_INF();
+Ratio<int> c = Ratio<int>(5, 0);
 
 std::cout << a << std::endl; // prints "+infinity"
 std::cout << b << std::endl; // prints "-infinity"
+std::cout << c << std::endl; // prints "+infinity"
 ```
 
 ### Other constants
@@ -145,7 +149,7 @@ std::cout << result << std::endl;
 ```
 
 ### Exceptions
-An exception occurs when dealing with the rational valued with both the numerator and the denominator to 0 (`0 / 0`).
+An exception occurs when dealing with the rational valued with both the numerator and the denominator to 0 (the fraction $\frac{0}{0}$).
 
 ### Conversion between rationals and floating point numbers
 | Name                                | Operation                                                   |
