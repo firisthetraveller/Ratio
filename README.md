@@ -107,6 +107,15 @@ Ratio<int> g = -a;
   | ==     | equal                 |
   | !=     | different             |
 
+Example :
+```cpp
+Ratio<int> a (5, 2);
+Ratio<int> b (7, 4);
+
+std::cout << (a < b) << std::endl;
+// prints "false"
+```
+
 
 ### Other methods
 | Name           | Operation                        |
@@ -115,6 +124,25 @@ Ratio<int> g = -a;
 | `r.round`()    | Nearest integer                  |
 | `r.truncate`() | Nearest integer lower than r     |
 | `r.inv`()      | Inverse                          |
+
+### Variadics
+| Name                     | Operation           |
+| ------------------------ | ------------------- |
+| `Ratio<T>::sum`(...)     | Sum of all elements |
+| `Ratio<T>::product`(...) | Product             |
+| `Ratio<T>::min`(...)     | Smallest element    |
+| `Ratio<T>::max`(...)     | Highest element     |
+
+Example :
+```cpp
+Ratio<int> result = Ratio<int>::sum(
+  Ratio<int>(5), Ratio<int>(26, 5),
+  Ratio<int>(3, 2), Ratio<int>::convertFromFloat(4.25));
+// Contains the sum of 5, 26/5, 3/2 and 4.25 (as a rational), ie. 17/4.
+
+std::cout << result << std::endl;
+// Prints 319 / 20.
+```
 
 ### Exceptions
 An exception occurs when dealing with the rational valued with both the numerator and the denominator to 0 (`0 / 0`).
