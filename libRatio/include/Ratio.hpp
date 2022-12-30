@@ -86,22 +86,6 @@ public:
   /** @} */
 
   /****************************
-   * ASSIGNMENT OPERATORS
-   ****************************/
-   /**
-    * \defgroup Assignment operators
-    * \attention This assignment operator discards the previously
-    * stored value in the variable.
-    * @{
-    */
-  constexpr Ratio<T> operator-=(const Ratio<T>& r) const;
-  constexpr Ratio<T> operator+=(const Ratio<T>& r) const;
-  constexpr Ratio<T> operator*=(double scalar) const;
-  constexpr Ratio<T> operator*=(const Ratio<T>& r) const;
-  constexpr Ratio<T> operator/=(const Ratio<T>& r) const;
-  /** @} */
-
-  /****************************
    * COMPARISON OPERATORS
    ****************************/
    /**
