@@ -79,6 +79,7 @@ All standard operations are implemented.
   | \-     | subtraction    |
   | \*     | multiplication |
   | \/     | division       |
+  | \-     | unary minus    |
 
 Example :
 ```cpp
@@ -89,6 +90,7 @@ Ratio<int> c = a + b;
 Ratio<int> d = a - b;
 Ratio<int> e = a * b;
 Ratio<int> f = a / b;
+Ratio<int> g = -a;
 ```
 
 ### Comparison operators
