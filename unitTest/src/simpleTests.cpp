@@ -3,11 +3,11 @@
 #include <random>
 #include <vector>
 
-#include "../../libRatio/include/Ratio.hpp"
+#include <Ratio.hpp>
 
 // Constant value tests
 
-const uint DEFAULT_MAX_VALUE = 20;
+// const uint DEFAULT_MAX_VALUE = 20;
 
 TEST(DefaultValues, Zero) {
   EXPECT_EQ(0, Ratio<int>::ZERO().getNumerator());

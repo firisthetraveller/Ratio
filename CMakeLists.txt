@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.13)
 
 # give a name to the project
-project(myProject)
+project(Ratio)
 
 # add myCode
 message(STATUS "Ratio cmake part ..." )

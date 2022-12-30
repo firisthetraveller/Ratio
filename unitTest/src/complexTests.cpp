@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "../../libRatio/include/Ratio.hpp"
+#include <Ratio.hpp>
 
 // Disclaimer
 // The following tests are by no means, as of November 17, 2022, complete.

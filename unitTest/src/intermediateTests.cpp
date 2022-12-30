@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "../../libRatio/include/Ratio.hpp"
+#include <Ratio.hpp>
 
 // Types
 // TODO : Ratio<unsigned int>
