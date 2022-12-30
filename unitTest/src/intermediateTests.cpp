@@ -28,13 +28,12 @@ TEST(Simplify, ToConstNegativeInfinity) {
 }
 
 // Operators
-/*TEST(IntermediateOperators, ScalarMultiplyA)
-{
-    Ratio<int> a(2, 5);
-    Ratio<int> b = 5 * a;
+TEST(IntermediateOperators, ScalarMultiplyA) {
+  Ratio<int> a(2, 5);
+  Ratio<int> b = 5 * a;
 
-    EXPECT_EQ(b, Ratio<int>(2, 1));
-}*/
+  EXPECT_EQ(b, Ratio<int>(2, 1));
+}
 
 TEST(IntermediateOperators, ScalarMultiplyB1) {
   Ratio<int> a(2, 5);
@@ -60,24 +59,22 @@ TEST(IntermediateOperators, ScalarMultiplyB3) {
   EXPECT_EQ(b.getDenominator(), 10);
 }
 
-/*TEST(IntermediateOperators, ScalarMultiplyDouble)
-{
-    Ratio<int> a(2, 5);
-    Ratio<int> b = 7.5 * a;
+TEST(IntermediateOperators, ScalarMultiplyDouble) {
+  Ratio<int> a(2, 5);
+  Ratio<int> b = 7.5 * a;
 
-    EXPECT_EQ(b, Ratio<int>(3, 1));
-}*/
+  EXPECT_EQ(b, Ratio<int>(3, 1));
+}
 
-/*TEST(IntermediateOperators, ScalarMultiplyTrueDouble)
-{
-    Ratio<int> a(2, 5);
-    Ratio<int> b = 7.9 * a;
+TEST(IntermediateOperators, ScalarMultiplyTrueDouble) {
+  Ratio<int> a(2, 5);
+  Ratio<int> b = 7.9 * a;
 
-    double c = 2.0 / 5;
-    double d = 7.9 * c;
+  double c = 2.0 / 5;
+  double d = 7.9 * c;
 
-    EXPECT_NEAR(b.eval(), d, 10e-7);
-}*/
+  EXPECT_NEAR(b.eval(), d, 10e-7);
+}
 
 TEST(IntermediateOperators, DivisionByZero) {
   Ratio<int> a(5, 6);

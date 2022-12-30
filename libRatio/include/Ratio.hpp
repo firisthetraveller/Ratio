@@ -8,15 +8,11 @@
 
 /// \class Ratio
 /// \brief A rational is defined by the ratio of two integers a and b.
-/// \attention When Ratio is used with T: a floating point type, it crashes
-/// automatically with a very long error paragraph, because this class uses
-/// std::gcd and it does not work with floating point types. Since the class is
-/// not supposed to work with floating point numbers, it works as intended with
-/// this crash, though it would be better to have a cleaner error line for that.
-template <class T> class Ratio {
+template <class T>
+class Ratio {
 private:
-  T m_numerator;
-  unsigned int m_denominator;
+  T mNumerator;
+  unsigned int mDenominator;
 
   void simplify();
 
@@ -27,18 +23,6 @@ private:
   template <typename... Args>
   constexpr static Ratio<T> reduce(std::function <const Ratio<T>(const Ratio<T>, const Ratio<T>)> f, const Ratio<T>& r1, Args... args);
 public:
-  template <typename... Args>
-  constexpr static Ratio<T> min(const Ratio<T>& r, Args... args);
-
-  template <typename... Args>
-  constexpr static Ratio<T> max(const Ratio<T>& r, Args... args);
-
-  template <typename... Args>
-  constexpr static Ratio<T> sum(const Ratio<T>& r, Args... args);
-
-  template <typename... Args>
-  constexpr static Ratio<T> product(const Ratio<T>& r, Args... args);
-
   /// \brief Converts a floating point number to a rational number.
   /// \param value a floating point number
   /// \return the rational number converted
@@ -166,6 +150,22 @@ public:
    /// number.
    /// \return the value as a floating point number
   double eval() const;
+
+  /***********************
+   * VARIADICS
+   ***********************/
+  template <typename... Args>
+  constexpr static Ratio<T> min(const Ratio<T>& r, Args... args);
+
+  template <typename... Args>
+  constexpr static Ratio<T> max(const Ratio<T>& r, Args... args);
+
+  template <typename... Args>
+  constexpr static Ratio<T> sum(const Ratio<T>& r, Args... args);
+
+  template <typename... Args>
+  constexpr static Ratio<T> product(const Ratio<T>& r, Args... args);
+
 };
 
 template <typename T>
@@ -197,13 +197,13 @@ template <typename T> const Ratio<T> Ratio<T>::MINUS_INF() {
 }
 
 template <typename T> void Ratio<T>::simplify() {
-  int gcd = int(std::gcd(m_numerator, m_denominator));
-  m_numerator /= gcd;
-  m_denominator /= gcd;
+  int gcd = int(std::gcd(mNumerator, mDenominator));
+  mNumerator /= gcd;
+  mDenominator /= gcd;
 }
 
 template <typename T> double Ratio<T>::eval() const {
-  return m_numerator / double(m_denominator);
+  return mNumerator / double(mDenominator);
 }
 
 /****************************
@@ -211,13 +211,13 @@ template <typename T> double Ratio<T>::eval() const {
  ****************************/
 
 template <typename T>
-Ratio<T>::Ratio(T a, int b): m_numerator(a), m_denominator(b) {
+Ratio<T>::Ratio(T a, int b): mNumerator(a), mDenominator(b) {
   if (a == 0 && b == 0) {
     throw std::domain_error("zero_by_zero: undefined rational");
   }
   if (b < 0) {
-    m_numerator = -a;
-    m_denominator = -b;
+    mNumerator = -a;
+    mDenominator = -b;
   }
   simplify();
 }
@@ -227,11 +227,11 @@ Ratio<T>::Ratio(T a, int b): m_numerator(a), m_denominator(b) {
  ****************************/
 
 template <typename T> constexpr T Ratio<T>::getNumerator() const {
-  return m_numerator;
+  return mNumerator;
 }
 
 template <typename T> constexpr unsigned int Ratio<T>::getDenominator() const {
-  return m_denominator;
+  return mDenominator;
 }
 
 /****************************
@@ -239,18 +239,18 @@ template <typename T> constexpr unsigned int Ratio<T>::getDenominator() const {
  ****************************/
 template <typename T>
 constexpr Ratio<T> Ratio<T>::operator-(const Ratio<T>& r) const {
-  return Ratio<T>(m_numerator * r.m_denominator - m_denominator * r.m_numerator,
-    m_denominator * r.m_denominator);
+  return Ratio<T>(mNumerator * r.mDenominator - mDenominator * r.mNumerator,
+    mDenominator * r.mDenominator);
 }
 
 template <typename T> constexpr Ratio<T> Ratio<T>::operator-() const {
-  return Ratio<T>(-m_numerator, m_denominator);
+  return Ratio<T>(-mNumerator, mDenominator);
 }
 
 template <typename T>
 constexpr Ratio<T> Ratio<T>::operator+(const Ratio<T>& r) const {
-  return Ratio<T>(m_numerator * r.m_denominator + m_denominator * r.m_numerator,
-    m_denominator * r.m_denominator);
+  return Ratio<T>(mNumerator * r.mDenominator + mDenominator * r.mNumerator,
+    mDenominator * r.mDenominator);
 }
 
 template <typename T>
@@ -259,8 +259,13 @@ constexpr Ratio<T> Ratio<T>::operator*(double scalar) const {
 }
 
 template <typename T>
+constexpr Ratio<T> operator*(double scalar, const Ratio<T>& r) {
+  return r * Ratio<T>::convertFromFloat(scalar);
+}
+
+template <typename T>
 constexpr Ratio<T> Ratio<T>::operator*(const Ratio<T>& r) const {
-  return Ratio<T>(m_numerator * r.m_numerator, m_denominator * r.m_denominator);
+  return Ratio<T>(mNumerator * r.mNumerator, mDenominator * r.mDenominator);
 }
 
 template <typename T>
@@ -273,12 +278,12 @@ constexpr Ratio<T> Ratio<T>::operator/(const Ratio<T>& r) const {
  ****************************/
 template <typename T>
 constexpr bool Ratio<T>::operator>(const Ratio<T>& r) const {
-  return m_numerator * r.m_denominator > r.m_numerator * m_denominator;
+  return mNumerator * r.mDenominator > r.mNumerator * mDenominator;
 }
 
 template <typename T>
 constexpr bool Ratio<T>::operator>=(const Ratio<T>& r) const {
-  return m_numerator * r.m_denominator >= r.m_numerator * m_denominator;
+  return mNumerator * r.mDenominator >= r.mNumerator * mDenominator;
 }
 
 template <typename T>
@@ -293,7 +298,7 @@ constexpr bool Ratio<T>::operator<=(const Ratio<T>& r) const {
 
 template <typename T>
 constexpr bool Ratio<T>::operator==(const Ratio<T>& r) const {
-  return m_numerator == r.m_numerator && m_denominator == r.m_denominator;
+  return mNumerator == r.mNumerator && mDenominator == r.mDenominator;
 }
 
 template <typename T>
@@ -303,12 +308,12 @@ constexpr bool Ratio<T>::operator!=(const Ratio<T>& r) const {
 
 template <typename T>
 constexpr bool Ratio<T>::operator==(const int a) const {
-  return m_numerator == a && m_denominator == 1;
+  return mNumerator == a && mDenominator == 1;
 }
 
 template <typename T>
 constexpr Ratio<T> Ratio<T>::inv() const {
-  return Ratio<T>(((m_numerator < 0) ? -1 : 1) * static_cast<T>(m_denominator), std::abs(m_numerator));
+  return Ratio<T>(((mNumerator < 0) ? -1 : 1) * static_cast<T>(mDenominator), std::abs(mNumerator));
 }
 
 template <typename T>
@@ -320,18 +325,18 @@ Ratio<T> Ratio<T>::pow(double value) const {
 
 template <typename T>
 constexpr Ratio<T> Ratio<T>::abs() const {
-  return Ratio<T>(std::abs(m_numerator), m_denominator);
+  return Ratio<T>(std::abs(mNumerator), mDenominator);
 }
 
 template <typename T>
 constexpr Ratio<T> Ratio<T>::truncate() const {
-  return Ratio<T>((m_numerator - (m_numerator % m_denominator)) / m_denominator);
+  return Ratio<T>((mNumerator - (mNumerator % mDenominator)) / mDenominator);
 }
 
 template <typename T>
 constexpr Ratio<T> Ratio<T>::round() const {
-  int rest = m_numerator % m_denominator;
-  return Ratio<T>((m_numerator - rest) / m_denominator + ((rest >= double(m_denominator) / 2) ? 1 : 0));
+  int rest = mNumerator % mDenominator;
+  return Ratio<T>((mNumerator - rest) / mDenominator + ((rest >= double(mDenominator) / 2) ? 1 : 0));
 }
 
 template <typename T>
@@ -359,6 +364,10 @@ std::ostream& operator<< (std::ostream& out, const Ratio<T>& r) {
     out << r.getNumerator() << " / " << r.getDenominator();
   return out;
 }
+
+/*******************
+ * VARIADICS
+ *******************/
 
 template <typename T>
 template <typename... Args>
