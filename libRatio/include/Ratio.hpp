@@ -4,6 +4,7 @@
 #include <cmath>
 #include <iostream>
 #include <numeric>
+#include <functional>
 
 /// \class Ratio
 /// \brief A rational is defined by the ratio of two integers a and b.
@@ -21,7 +22,23 @@ private:
 
   static Ratio<T> convertFromFloatAux(float value, int nbIter);
 
+  constexpr static Ratio<T> reduce(std::function <const Ratio<T>(const Ratio<T>, const Ratio<T>)> f, const Ratio<T>& r1, const Ratio<T>& r2);
+
+  template <typename... Args>
+  constexpr static Ratio<T> reduce(std::function <const Ratio<T>(const Ratio<T>, const Ratio<T>)> f, const Ratio<T>& r1, Args... args);
 public:
+  template <typename... Args>
+  constexpr static Ratio<T> min(const Ratio<T>& r, Args... args);
+
+  template <typename... Args>
+  constexpr static Ratio<T> max(const Ratio<T>& r, Args... args);
+
+  template <typename... Args>
+  constexpr static Ratio<T> sum(const Ratio<T>& r, Args... args);
+
+  template <typename... Args>
+  constexpr static Ratio<T> product(const Ratio<T>& r, Args... args);
+
   /// \brief Converts a floating point number to a rational number.
   /// \param value a floating point number
   /// \return the rational number converted
@@ -341,6 +358,41 @@ std::ostream& operator<< (std::ostream& out, const Ratio<T>& r) {
   else
     out << r.getNumerator() << " / " << r.getDenominator();
   return out;
+}
+
+template <typename T>
+template <typename... Args>
+constexpr Ratio<T> Ratio<T>::min(const Ratio<T>& r, Args... args) {
+  return reduce([](const Ratio<T>& r1, const Ratio<T>& r2) {return (r1 < r2) ? r1 : r2;}, r, args...);
+}
+
+template <typename T>
+template <typename... Args>
+constexpr Ratio<T> Ratio<T>::max(const Ratio<T>& r, Args... args) {
+  return reduce([](const Ratio<T>& r1, const Ratio<T>& r2) {return (r1 > r2) ? r1 : r2;}, r, args...);
+}
+
+template <typename T>
+template <typename... Args>
+constexpr Ratio<T> Ratio<T>::sum(const Ratio<T>& r, Args... args) {
+  return reduce([](const Ratio<T>& r1, const Ratio<T>& r2) {return r1 + r2;}, r, args...);
+}
+
+template <typename T>
+template <typename... Args>
+constexpr Ratio<T> Ratio<T>::product(const Ratio<T>& r, Args... args) {
+  return reduce([](const Ratio<T>& r1, const Ratio<T>& r2) {return r1 * r2;}, r, args...);
+}
+
+template <typename T>
+constexpr Ratio<T> Ratio<T>::reduce(std::function <const Ratio<T>(const Ratio<T>, const Ratio<T>)> f, const Ratio<T>& r1, const Ratio<T>& r2) {
+  return f(r1, r2);
+}
+
+template <typename T>
+template <typename... Args>
+constexpr Ratio<T> Ratio<T>::reduce(std::function <const Ratio<T>(const Ratio<T>, const Ratio<T>)> f, const Ratio<T>& r, Args... args) {
+  return reduce(f, r, reduce(f, args...));
 }
 
 #endif

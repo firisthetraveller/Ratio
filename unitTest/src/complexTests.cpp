@@ -22,6 +22,36 @@ TEST(Conversion, NegativeConversionB) {
   EXPECT_EQ(1, a.getDenominator());
 }
 
+// Variadics
+
+TEST(Variadics, Max) {
+  Ratio<int> mx = Ratio<int>::max(Ratio<int>(5), Ratio<int>(26, 5), Ratio<int>(3, 2), Ratio<int>::convertFromFloat(4.25));
+
+  EXPECT_EQ(mx.getNumerator(), 26);
+  EXPECT_EQ(mx.getDenominator(), 5);
+}
+
+TEST(Variadics, Min) {
+  Ratio<int> mx = Ratio<int>::min(Ratio<int>(5), Ratio<int>(26, 5), Ratio<int>(3, 2), Ratio<int>::convertFromFloat(4.25));
+
+  EXPECT_EQ(mx.getNumerator(), 3);
+  EXPECT_EQ(mx.getDenominator(), 2);
+}
+
+TEST(Variadics, Sum) {
+  Ratio<int> mx = Ratio<int>::sum(Ratio<int>(5), Ratio<int>(26, 5), Ratio<int>(3, 2), Ratio<int>::convertFromFloat(4.25));
+
+  EXPECT_EQ(mx.getNumerator(), 319);
+  EXPECT_EQ(mx.getDenominator(), 20);
+}
+
+TEST(Variadics, Product) {
+  Ratio<int> mx = Ratio<int>::product(Ratio<int>(5), Ratio<int>(26, 5), Ratio<int>(3, 2), Ratio<int>::convertFromFloat(4.25));
+
+  EXPECT_EQ(mx.getNumerator(), 663);
+  EXPECT_EQ(mx.getDenominator(), 4);
+}
+
 // Methods
 
 // // TODO cos
