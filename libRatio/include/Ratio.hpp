@@ -100,7 +100,6 @@ public:
   constexpr bool operator==(const Ratio<T>& r) const;
   constexpr bool operator!=(const Ratio<T>& r) const;
 
-  constexpr bool operator==(const int a) const;
   /** @} */
   /****************************
    * MATH OPERATORS
@@ -304,11 +303,6 @@ constexpr bool Ratio<T>::operator==(const Ratio<T>& r) const {
 template <typename T>
 constexpr bool Ratio<T>::operator!=(const Ratio<T>& r) const {
   return !(*this == r);
-}
-
-template <typename T>
-constexpr bool Ratio<T>::operator==(const int a) const {
-  return mNumerator == a && mDenominator == 1;
 }
 
 template <typename T>

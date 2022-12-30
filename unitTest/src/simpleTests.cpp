@@ -101,27 +101,6 @@ TEST(Simplify, Addition) {
   EXPECT_EQ(2, c.getDenominator());
 }
 
-// TEST(SimpleOperators, AdditionBatch) {
-//     std::mt19937 generator(0);
-//     std::uniform_int_distribution<int> uniformPositiveIntDistribution(1,
-//     DEFAULT_MAX_VALUE); std::uniform_int_distribution<int>
-//     uniformIntDistribution(-DEFAULT_MAX_VALUE, DEFAULT_MAX_VALUE);
-//     std::vector<Ratio<int>> a(100), b(100);
-//     auto gen = [&uniformIntDistribution, &uniformPositiveIntDistribution,
-//     &generator]() { return Ratio<int>(uniformIntDistribution(generator),
-//     uniformPositiveIntDistribution(generator)); };
-
-//     std::generate(a.begin(), a.end(), gen);
-//     std::generate(b.begin(), b.end(), gen);
-
-//     for (int i = 0; i < 100; i++) {
-//         Ratio<int> res = a[i] + b[i];
-//         double c = a[i].eval() + b[i].eval();
-//         EXPECT_NEAR(c, res.eval(), 10e-7);
-//         EXPECT_EQ(Ratio<int>::convertFromFloat(c), res);
-//     }
-// }
-
 TEST(SimpleOperators, Subtraction) {
   Ratio<int> a(5, 6);
   Ratio<int> b(2, 3);
@@ -131,30 +110,6 @@ TEST(SimpleOperators, Subtraction) {
   EXPECT_EQ(1, c.getNumerator());
   EXPECT_EQ(6, c.getDenominator());
 }
-
-// // TEST(SimpleOperators, SubtractionBatch)
-// // {
-// //     const std::mt19937 generator = std::mt19937(0);
-// //     std::uniform_int_distribution<int> uniformPositiveIntDistribution(1,
-// DEFAULT_MAX_VALUE);
-// //     std::uniform_int_distribution<int>
-// uniformIntDistribution(-DEFAULT_MAX_VALUE, DEFAULT_MAX_VALUE);
-// //     std::vector<Ratio<int>> a(100), b(100), res(100);
-// //     auto gen = [&uniformIntDistribution, &uniformPositiveIntDistribution,
-// &generator]()
-// //     { return Ratio<int>(uniformIntDistribution(generator),
-// uniformPositiveIntDistribution(generator)); };
-
-// //     std::generate(a.begin(), a.end(), gen);
-// //     std::generate(b.begin(), b.end(), gen);
-
-// //     for (int i = 0; i < 100; i++)
-// //     {
-// //         Ratio<int> c = a[i] - b[i];
-// //         EXPECT_EQ(c.getNumerator(), res[i].getNumerator());
-// //         EXPECT_EQ(c.getDenominator(), res[i].getDenominator());
-// //     }
-// // }
 
 TEST(SimpleOperators, Multiply) {
   Ratio<int> a(5, 6);
@@ -186,30 +141,6 @@ TEST(Simplify, MultiplyScalar) {
   EXPECT_EQ(2, c.getDenominator());
 }
 
-// // TEST(SimpleOperators, MultiplyBatch)
-// // {
-// //     const std::mt19937 generator = std::mt19937(0);
-// //     std::uniform_int_distribution<int> uniformPositiveIntDistribution(1,
-// DEFAULT_MAX_VALUE);
-// //     std::uniform_int_distribution<int>
-// uniformIntDistribution(-DEFAULT_MAX_VALUE, DEFAULT_MAX_VALUE);
-// //     std::vector<Ratio<int>> a(100), b(100), res(100);
-// //     auto gen = [&uniformIntDistribution, &uniformPositiveIntDistribution,
-// &generator]()
-// //     { return Ratio<int>(uniformIntDistribution(generator),
-// uniformPositiveIntDistribution(generator)); };
-
-// //     std::generate(a.begin(), a.end(), gen);
-// //     std::generate(b.begin(), b.end(), gen);
-
-// //     for (int i = 0; i < 100; i++)
-// //     {
-// //         Ratio<int> c = a[i] * b[i];
-// //         EXPECT_EQ(c.getNumerator(), res[i].getNumerator());
-// //         EXPECT_EQ(c.getDenominator(), res[i].getDenominator());
-// //     }
-// // }
-
 TEST(SimpleOperators, Division) {
   Ratio<int> a(5, 3);
   Ratio<int> b(7, 2);
@@ -229,26 +160,6 @@ TEST(Simplify, Division) {
   EXPECT_EQ(5, c.getNumerator());
   EXPECT_EQ(4, c.getDenominator());
 }
-
-// // TEST(SimpleOperators, DivideBatch)
-// // {
-// //     RatioGenerator<int> gen = RatioGenerator<int>();
-// //     Ratio<int> a[100], b[100], res[100];
-
-// //     for (int i = 0; i < 100; i++)
-// //     {
-// //         a[i] = gen.get();
-// //         b[i] = gen.get();
-// //         // TODO res[i] = manually calculated ratio;
-// //     }
-
-// //     for (int i = 0; i < 100; i++)
-// //     {
-// //         Ratio<int> c = a[i] / b[i];
-// //         EXPECT_EQ(c.getNumerator(), res[i].getNumerator());
-// //         EXPECT_EQ(c.getDenominator(), res[i].getDenominator());
-// //     }
-// // }
 
 TEST(StandardOperators, Absolute) {
   Ratio<int> a(-5, 1);
@@ -306,7 +217,7 @@ TEST(StandardOperators, NegativeInverse) {
   EXPECT_EQ(a.getDenominator(), -b.getNumerator());
 }
 
-// // // Comparison tests
+// Comparison tests
 
 TEST(ComparisonOperators, LowerWhenTrue) {
   Ratio<int> a(3, 5);
@@ -397,22 +308,6 @@ TEST(ComparisonOperators, EqualWhenTrueB) {
   EXPECT_EQ(a + b, 2);
 }
 
-// TEST(ComparisonOperators, EqualIntTrue) {
-//   Ratio<int> a(4);
-
-//   EXPECT_TRUE(a == 4);
-//   EXPECT_TRUE(4 == a);
-//   EXPECT_EQ(4, a);
-//   EXPECT_EQ(a, 4);
-// }
-
-// TEST(ComparisonOperators, EqualIntFalse) {
-//   Ratio<int> a(5);
-
-//   EXPECT_NE(a, 4);
-//   EXPECT_NE(4, a);
-// }
-
 TEST(ComparisonOperators, GreaterWhenFalse) {
   Ratio<int> a(3, 5);
   Ratio<int> b(6, 7);
@@ -496,7 +391,7 @@ TEST(FriendOperators, PrintMinusInfinity) {
   EXPECT_EQ("-infinity\n", oss117.str());
 }
 
-// // Exception tests
+// Exception tests
 TEST(Exception, ZeroByZero) {
   EXPECT_THROW(Ratio<int>(0, 0), std::domain_error);
 }
@@ -504,5 +399,3 @@ TEST(Exception, ZeroByZero) {
 TEST(Exception, IntoZeroByZero) {
   EXPECT_THROW(Ratio<int>::ZERO() * Ratio<int>::PLUS_INF(), std::domain_error);
 }
-
-// // Methods
