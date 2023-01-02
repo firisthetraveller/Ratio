@@ -29,7 +29,7 @@ $ > make install
 The documentation will be located at `build/libRatio/doc/doc-doxygen/html/index.html`.
 
 ### Launch the unit tests
-They are located in the folder `build/unitTests/`.
+They are located in the folder `build/unitTest/`.
 There are three of them, ordered by subjective difficulty of implementation.
 - `RatioSimpleUnitTests`
 - `RatioIntermediateUnitTests`
