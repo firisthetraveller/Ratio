@@ -111,6 +111,16 @@ TEST(SimpleOperators, Subtraction) {
   EXPECT_EQ(6, c.getDenominator());
 }
 
+TEST(Simplify, Subtraction) {
+  Ratio<int> a(5, 6);
+  Ratio<int> b(1, 3);
+
+  Ratio<int> c = a - b;
+
+  EXPECT_EQ(1, c.getNumerator());
+  EXPECT_EQ(2, c.getDenominator());
+}
+
 TEST(SimpleOperators, Multiply) {
   Ratio<int> a(5, 6);
   Ratio<int> b(1, 3);
